@@ -1,6 +1,6 @@
 # D4 — Prototype and Sample Data
 
-The working prototype is this repository. There is no hosted URL and no demo recording yet. Both are external steps.
+The working prototype is this repository. The hosted demo is https://the-completion-trust-problem.vercel.app. Partner lookup of the seeded IDs was checked there on 28 October 2026. New review decisions are stored in temporary SQLite storage and may reset when a server instance is replaced. There is still no demo recording.
 
 ## Run locally
 

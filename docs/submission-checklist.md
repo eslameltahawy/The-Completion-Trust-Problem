@@ -28,7 +28,7 @@ Status was checked against the code and the test run in this session. "Verified"
 | D1 decision memo | `docs/D1-decision-memo.md` | Written |
 | D2 MVP PRD | `docs/D2-mvp-prd.md` | Written |
 | D3 discovery plan | `docs/D3-discovery-validation-plan.md` | Written |
-| D4 prototype guide | `docs/D4-prototype-and-sample-data.md` | Written. No hosted URL or recording |
+| D4 prototype guide | `docs/D4-prototype-and-sample-data.md` | Written. Hosted at https://the-completion-trust-problem.vercel.app. No recording |
 | D5 three diagrams | `docs/D5-*.mmd` | Written |
 | D6 metrics | `docs/D6-metrics-table.md` | Written |
 | D7 policy register | `docs/D7-edge-case-policy-register.md` | Written |
@@ -37,4 +37,4 @@ Status was checked against the code and the test run in this session. "Verified"
 | D10 working log | `docs/D10-working-log.md` | Written for this session only |
 | Lint, tests, production build | package scripts | 28 Oct 2026 session: `npm test` 25 passed; `npm run lint` clean; `npm run build` succeeded |
 | Demo recording under three minutes | D4 plan | Not done. External |
-| Push or deploy | Git remote exists locally | Not done in this session |
+| Push or deploy | `main` on GitHub and Vercel production | Pushed and deployed on 28 Oct 2026. Live partner checks passed for a verified ID, a completion record, and an unknown ID |

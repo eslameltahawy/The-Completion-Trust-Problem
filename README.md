@@ -82,7 +82,7 @@ npm run build
 - Written answers are checked for explicit expected elements. That is a demo heuristic. Reviewers can override it with a reason.
 - Numeric pass marks are unvalidated hypotheses.
 - Refreshing a partner result records another verification event.
-- No hosted demo and no recording yet. See `docs/D4-prototype-and-sample-data.md`.
+- The hosted demo is https://the-completion-trust-problem.vercel.app. SQLite is copied into temporary storage on each server instance, so partner lookups of the seeded IDs work, while new review decisions can disappear when that instance is replaced. No demo recording yet.
 
 ## Deliverables
 
@@ -104,4 +104,6 @@ npm run build
 - [Sample-data inventory](data/sample-data-inventory.md)
 - [Submission checklist](docs/submission-checklist.md)
 
-The local git remote is `https://github.com/eslameltahawy/The-Completion-Trust-Problem.git`. This session did not push.
+Repository: https://github.com/eslameltahawy/The-Completion-Trust-Problem.git
+
+Hosted prototype: https://the-completion-trust-problem.vercel.app/portal/partner
