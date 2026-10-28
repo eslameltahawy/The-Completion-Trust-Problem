@@ -6,7 +6,7 @@ import { formatDate } from "@/server/format";
 import { getStudentDashboard } from "@/server/queries";
 
 const notices: Record<string, string> = {
-  submitted: "Your assessment was submitted and is Pending Review. A Competency Certificate has not been issued.",
+  submitted: "Your assessment was submitted and is Pending Review. A proof 180 Certificate has not been issued.",
 };
 
 function progressPill(progress: Progress) {
@@ -38,7 +38,7 @@ function actionFor(completionId: string, progress: Progress) {
     case "ready":
       return (
         <Link className="btn btn-teal" href={`/portal/student/courses/${completionId}/assessment`}>
-          Get Competency Certificate
+          Get proof 180 Certificate
         </Link>
       );
     case "not_issued":
@@ -65,7 +65,7 @@ function actionFor(completionId: string, progress: Progress) {
     case "revoked":
       return (
         <Link className="btn btn-teal" href={`/portal/student/certificates/${progress.certificatePublicId}`}>
-          Open Competency Certificate
+          Open proof 180 Certificate
         </Link>
       );
     default:
@@ -100,8 +100,8 @@ export default async function StudentPage({
           {segment} · {dashboard.learner.email}
         </p>
         <p className="mt-4 max-w-3xl">
-          Completing a course gives you a Course Completion Record. It does not create a Competency
-          Certificate. A certificate is available only after an eligible Competency Assessment is
+          Completing a course gives you a Course Completion record. It does not create a proof 180
+          Certificate. A proof 180 Certificate is available only after an eligible Competency Assessment is
           reviewed and approved.
         </p>
       </section>
@@ -122,8 +122,8 @@ export default async function StudentPage({
               <article key={course.completionId} className="card completion-card p-5">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-slate">
-                      Course Completion Record
+                    <p className="text-xs font-semibold tracking-wide text-slate">
+                      Course Completion record
                     </p>
                     <h3 className="serif mt-1 text-2xl">
                       {course.courseTitle} · {course.versionLabel}
@@ -141,12 +141,12 @@ export default async function StudentPage({
                 {course.progress.kind === "exhausted" ? (
                   <p className="mt-3">
                     Not Verified / Not Issued. The attempt limit for this assessment has been reached,
-                    so no Competency Certificate was issued.
+                    so no proof 180 Certificate was issued.
                   </p>
                 ) : null}
                 <div className="mt-4 flex flex-wrap gap-2">
                   <Link className="btn btn-ghost" href={`/portal/student/completions/${course.completionId}`}>
-                    View completion record
+                    View Course Completion record
                   </Link>
                   {actionFor(course.completionId, course.progress)}
                 </div>
@@ -157,21 +157,21 @@ export default async function StudentPage({
       </section>
 
       <section>
-        <h2 className="serif text-3xl">Competency certificates</h2>
+        <h2 className="serif text-3xl">proof 180 Certificates</h2>
         {dashboard.certificates.length === 0 ? (
           <div className="card competency-card mt-4 p-6">
-            <h3 className="font-semibold">No Competency Certificates</h3>
+            <h3 className="font-semibold">No proof 180 Certificates</h3>
             <p className="mt-2 text-muted">
-              Course completion did not create a certificate. When an assessment is approved, the
-              verified certificate will appear here.
+              A Course Completion record did not create a proof 180 Certificate. When an assessment is approved, the
+              verified proof 180 Certificate will appear here.
             </p>
           </div>
         ) : (
           <div className="mt-4 grid gap-4">
             {dashboard.certificates.map((certificate) => (
               <article key={certificate.id} className="card competency-card p-5">
-                <p className="text-xs font-semibold uppercase tracking-wider text-teal">
-                  Competency Certificate
+                <p className="text-xs font-semibold tracking-wide text-teal">
+                  proof 180 Certificate
                 </p>
                 <h3 className="serif mt-1 text-2xl">{certificate.competency.name}</h3>
                 <p className="mt-1 text-sm text-muted">
@@ -184,7 +184,7 @@ export default async function StudentPage({
                   </StatusPill>
                 </div>
                 <Link className="btn btn-teal mt-4" href={`/portal/student/certificates/${certificate.publicId}`}>
-                  Open certificate
+                  Open proof 180 Certificate
                 </Link>
               </article>
             ))}

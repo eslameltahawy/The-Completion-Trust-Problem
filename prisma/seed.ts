@@ -368,7 +368,7 @@ async function main() {
     id: "att-amira-data", learnerId: "usr-amira", completionId: "ccr-amira-data", assessmentVersionId: "av-data", attemptNumber: 1, state: "issued", consent: false,
     startedAt: "2026-02-01T09:00:00.000Z", deadlineAt: "2026-02-01T09:20:00.000Z", submittedAt: "2026-02-01T09:16:00.000Z",
     answers: dataCorrect,
-    decision: { decision: "approve", reason: "The proposed pass matches the keyed responses. I am issuing the competency certificate.", at: "2026-02-02T10:00:00.000Z" },
+    decision: { decision: "approve", reason: "The proposed pass matches the keyed responses. I am issuing the proof 180 Certificate.", at: "2026-02-02T10:00:00.000Z" },
     certificate: { id: "ctc-amira-data", publicId: "CTC-4F8C1A9B2E", status: "verified", issuedAt: "2026-02-02T10:00:00.000Z" },
   });
   const saraOutcome = await gradeAndStore({

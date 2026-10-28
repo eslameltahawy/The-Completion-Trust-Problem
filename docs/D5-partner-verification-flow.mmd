@@ -3,8 +3,8 @@ flowchart TD
   form[EnterId]
   shape{IdShapeValid}
   kind{WhatWasFound}
-  verified[VerifiedCompetencyCertificate]
-  revoked[RevokedCompetencyCertificate]
+  verified["Verified proof 180 Certificate"]
+  revoked["Revoked proof 180 Certificate"]
   completion[CourseCompletionRecord]
   historical[HistoricalOrRevisedVersionNote]
   pending[PendingOrNotIssued]
@@ -16,7 +16,7 @@ flowchart TD
   shape -->|well formed| kind
   kind -->|approved certificate| verified
   kind -->|revoked certificate| revoked
-  kind -->|completion record| completion
+  kind -->|Course Completion record| completion
   completion --> historical
   kind -->|attempt without a certificate| pending
   kind -->|no match| invalid

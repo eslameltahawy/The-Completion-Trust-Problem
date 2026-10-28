@@ -3,7 +3,7 @@ import { LoginForm } from "@/components/LoginForm";
 import { SubmitButton } from "@/components/SubmitButton";
 
 const accounts = [
-  ["Amira Hassan", "amira.hassan@demo.local", "Issued certificate and a completion that is not a certificate"],
+  ["Amira Hassan", "amira.hassan@demo.local", "Issued proof 180 Certificate and a Course Completion record"],
   ["Omar Nasser", "omar.nasser@demo.local", "Corporate learner with a review queue item"],
   ["Yusuf Adel", "yusuf.adel@demo.local", "Failed attempts and an exhausted limit"],
   ["Hana Mostafa", "hana.mostafa@demo.local", "Eligible quiz that has not been started"],

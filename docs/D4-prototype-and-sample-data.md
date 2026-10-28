@@ -38,7 +38,7 @@ No account. On `/portal/partner`:
 
 - `CTC-4F8C1A9B2E` — Verified, Amira Hassan, Data Literacy
 - `CTC-91D0E7C4A6` — Verified, Sara Ibrahim
-- `CCR-LAYLA-EXCL1` — Historical Certificate and Course Completion Record for Excel v1. Not a Competency Certificate.
+- `CCR-LAYLA-EXCL1` — Historical Certificate and Course Completion record for Excel v1. Not a proof 180 Certificate.
 - `att-omar-sql` — Pending Review. No certificate issued.
 - `att-yusuf-2` — Not Verified / Not Issued.
 - `CTC-77B3E2D1C8` — Revoked, Noor Fahmy
@@ -46,7 +46,7 @@ No account. On `/portal/partner`:
 
 ## Learner path
 
-Sign in as Hana. Data Literacy shows Assessment Not Started. Open **Get Competency Certificate**, acknowledge the rules, and start. Correct sample key, for the demo only: B, B, B, A. Submit. The state becomes Pending Review and no certificate appears. Communication stays Assessment Design Required.
+Sign in as Hana. Data Literacy shows Assessment Not Started. Open **Get proof 180 Certificate**, acknowledge the rules, and start. Correct sample key, for the demo only: B, B, B, A. Submit. The state becomes Pending Review and no certificate appears. Communication stays Assessment Design Required.
 
 Amira already shows the split between her completion records and CTC-4F8C1A9B2E. Layla's Excel record stays on version 1.
 

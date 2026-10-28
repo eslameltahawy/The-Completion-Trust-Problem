@@ -10,7 +10,7 @@ No findings below are real research. Each item is a study that should happen bef
 
 **Method.** Fifteen moderated lookups on the partner page, using a verified ID, a revoked ID, a completion-record ID, and an unknown ID. Ask what decision they would make next, and whether absence of a certificate would count against a candidate.
 
-**Evidence that would count.** They can state, unprompted, that a completion record is not a competency certificate, and they describe Not Verified as "no credential of this type," not as a failed skill.
+**Evidence that would count.** They can state, unprompted, that a completion record is not a proof 180 Certificate, and they describe Not Verified as "no credential of this type," not as a failed skill.
 
 **Design change.** If most partners treat a missing certificate as a negative signal, stop presenting assessment as an optional upgrade in employer-facing copy, and test a wording and process that blocks that inference before any wider release.
 

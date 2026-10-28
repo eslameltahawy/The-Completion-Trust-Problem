@@ -140,7 +140,7 @@ export const demoEvaluator: EvaluationProvider = {
         ? "Text checks look for explicit expected elements. That rule is a demo heuristic, not a validated measure of mastery."
         : `A score of ${passingScoreHypothesis}% or higher is an unvalidated passing hypothesis, not a calibrated standard.`;
 
-    const rationale = `Demo evaluator proposed ${proposedOutcome}. ${hypothesisLabel} This proposal cannot issue a Competency Certificate.`;
+    const rationale = `Demo evaluator proposed ${proposedOutcome}. ${hypothesisLabel} This proposal cannot issue a proof 180 Certificate.`;
 
     const output: EvaluationOutput = {
       method: DEMO_EVALUATOR_METHOD,

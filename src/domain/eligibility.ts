@@ -26,7 +26,7 @@ export interface ProgressInput {
 }
 
 const DESIGN_REQUIRED =
-  "Assessment Design Required. This course has a Course Completion Record only. No validated competency assessment exists yet, so a Competency Certificate cannot be issued.";
+  "Assessment Design Required. This course has a Course Completion record only. No validated competency assessment exists yet, so a proof 180 Certificate cannot be issued.";
 
 const NOT_YET_ELIGIBLE =
   "Not Yet Eligible. This completion belongs to a course version that does not have this assessment. Finishing an older version does not qualify the learner for a newer assessment, and the historical record is unchanged.";

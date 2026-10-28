@@ -4,7 +4,7 @@ Status was checked against the code and the test run in this session. "Verified"
 
 | Requirement | Artifact | Status |
 | --- | --- | --- |
-| Completion is not a competency certificate | Student dashboard, completion page, D1 | Verified by workflow test and seed |
+| Completion is not a proof 180 Certificate | Student dashboard, completion page, D1 | Verified by workflow test and seed |
 | Assessment only for an owned, matching completion | `startAssessment` | Verified |
 | Submit moves to Pending Review and does not issue | `submitAttempt` | Verified |
 | Certificate only after approval, once | `decideReview` | Verified |

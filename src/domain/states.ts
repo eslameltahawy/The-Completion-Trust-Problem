@@ -52,7 +52,7 @@ export function assertCertificateRevocation(status: string) {
   if (status !== "verified") {
     throw new DomainError(
       "invalid_transition",
-      "Only a verified Competency Certificate can be revoked.",
+      "Only a verified proof 180 Certificate can be revoked.",
     );
   }
 }

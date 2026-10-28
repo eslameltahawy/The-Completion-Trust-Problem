@@ -110,7 +110,7 @@ beforeEach(async () => {
 });
 
 describe("certificate workflow", () => {
-  it("does not create a competency certificate from completion alone", async () => {
+  it("does not create a proof 180 Certificate from completion alone", async () => {
     await courseGraph("quiz");
     expect(await prisma.competencyCertificate.count()).toBe(0);
   });
@@ -235,7 +235,7 @@ describe("certificate workflow", () => {
     expect(completion.outcome).toBe("completion_record");
     if (completion.outcome === "completion_record") {
       expect(completion.learnerName).toBe("Learner One");
-      expect(completion.message).toContain("not a Competency Certificate");
+      expect(completion.message).toContain("not a proof 180 Certificate");
     }
   });
 

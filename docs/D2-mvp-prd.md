@@ -14,17 +14,17 @@ Excluded: course player, production single sign-on, real model calls, camera or 
 
 ## Functional requirements
 
-- Show completed courses and competency certificates as separate lists.
-- Open and print a Course Completion Record that says it is not a Competency Certificate.
+- Show completed courses and proof 180 Certificates as separate lists.
+- Open and print a Course Completion record that says it is not a proof 180 Certificate.
 - Start an assessment only when the learner owns the completion and the assessment targets that course version.
 - Require an acknowledgement of rules, attempt limit, time limit, privacy, and review.
 - Offer optional tab-visibility signals. Never use the camera or capture the screen.
 - Save answers, submit once, and move the attempt to Pending Review.
 - Let a reviewer approve, reject, or return, with a reason of at least 12 characters.
 - Issue a certificate only on approval. Reject leaves Not Verified / Not Issued.
-- Let a partner submit an ID and see Verified, Revoked, a Course Completion Record, Pending Review, Not Verified / Not Issued, or an unknown ID.
+- Let a partner submit an ID and see Verified, Revoked, a Course Completion record, Pending Review, Not Verified / Not Issued, or an unknown ID.
 - Keep answers, integrity events, and reviewer notes out of the partner view.
-- Import a legacy completion without creating a competency certificate.
+- Import a legacy completion without creating a proof 180 Certificate.
 
 ## States
 
@@ -38,7 +38,7 @@ SQLite via Prisma. Learners and reviewers share `User`, distinguished by role. C
 
 ## Historical migration
 
-Legacy rows become Course Completion Records linked by the legacy ID. The course version and original date stay. A second run links or skips. It never writes a Competency Certificate. Sample data only.
+Legacy rows become Course Completion records linked by the legacy ID. The course version and original date stay. A second run links or skips. It never writes a proof 180 Certificate. Sample data only.
 
 ## Acceptance criteria
 
@@ -50,8 +50,8 @@ Legacy rows become Course Completion Records linked by the legacy ID. The course
 - Given reviewer approval, when issuance runs, then one certificate is created and a second approval fails.
 - Given rejection, when the decision is saved, then no certificate exists.
 - Given CTC-4F8C1A9B2E, when a partner verifies it, then the result is Verified and includes name, course, competency, date, criteria, and a short evidence summary.
-- Given CCR-LAYLA-EXCL1, when a partner verifies it, then the result is a Historical Certificate and a Course Completion Record for Excel v1, names Layla Farouk, and does not present competency.
-- Given att-omar-sql, when a partner verifies it, then the result is Pending Review and not a Competency Certificate.
+- Given CCR-LAYLA-EXCL1, when a partner verifies it, then the result is a Historical Certificate and a Course Completion record for Excel v1, names Layla Farouk, and does not present competency.
+- Given att-omar-sql, when a partner verifies it, then the result is Pending Review and not a proof 180 Certificate.
 - Given att-yusuf-2, when a partner verifies it, then the result is Not Verified / Not Issued.
 - Given CTC-DOES-NOT-EXIST, when a partner verifies it, then the result is Not Verified and includes no personal information.
 - Given CTC-77B3E2D1C8, when a partner verifies it, then the result is Revoked and the revocation note is absent.

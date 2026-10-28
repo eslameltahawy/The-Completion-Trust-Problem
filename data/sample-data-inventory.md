@@ -13,9 +13,9 @@ Password for every account: `demo-pass`. People and organizations are fictional.
 
 | Scenario | Lookup ID | Partner result |
 | --- | --- | --- |
-| No assessment | `CCR-AMIRA-COMM1`, `CCR-HANA-COMM01`, `CCR-YUSUF-COMM1` | Course Completion Record |
+| No assessment | `CCR-AMIRA-COMM1`, `CCR-HANA-COMM01`, `CCR-YUSUF-COMM1` | Course Completion record |
 | Auto-graded quiz, issued | `CTC-4F8C1A9B2E`, `CTC-91D0E7C4A6` | Verified |
-| Auto-graded quiz, not started | `CCR-HANA-DATA01` | Course Completion Record |
+| Auto-graded quiz, not started | `CCR-HANA-DATA01` | Course Completion record |
 | Practical assessment, pending | `att-sara-disc` | Pending Review |
 | Practical assessment, in progress, extended time | `att-karim-disc` | In Progress |
 | Prototype integrity signal, not live monitoring | `att-omar-agile` | Returned for further review |

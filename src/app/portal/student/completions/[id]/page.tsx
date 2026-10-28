@@ -19,10 +19,10 @@ export default async function CompletionPage({ params }: { params: Promise<{ id:
         </Link>
         <PrintButton />
       </div>
-      <p className="text-xs font-semibold uppercase tracking-wider text-slate">Course Completion Record</p>
+      <p className="text-xs font-semibold tracking-wide text-slate">Course Completion record</p>
       <h1 className="serif mt-2 text-4xl">{completion.courseVersion.course.title}</h1>
       <p className="mt-3 max-w-2xl text-lg">
-        This record confirms course completion. It is not a Competency Certificate and does not show
+        This Course Completion record confirms course completion. It is not a proof 180 Certificate and does not show
         that the learner demonstrated mastery.
       </p>
       <dl className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -47,7 +47,7 @@ export default async function CompletionPage({ params }: { params: Promise<{ id:
       {completion.legacyLabel ? (
         <p className="mt-4">
           Historical label preserved: {completion.legacyLabel}. The original issue date is the
-          completion date above. This import was not upgraded to a Competency Certificate.
+          completion date above. This import was not upgraded to a proof 180 Certificate.
         </p>
       ) : null}
       <p className="mt-6 text-sm text-muted">

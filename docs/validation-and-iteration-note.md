@@ -4,7 +4,7 @@ No learners, employer partners, instructors, or operators have been interviewed.
 
 ## Decisions
 
-Completion and competency are separate. A Competency Certificate requires reviewer approval. Courses without an assessment stay at Assessment Design Required. Historical certificates stay completion records for the version that was completed. Corporate enrollment is not a competency score. The review cost is carried by the product and operations budget, not by cutting completion payouts. The dollar figure in D1 is an assumption.
+Completion and competency are separate. A proof 180 Certificate requires reviewer approval. Courses without an assessment stay at Assessment Design Required. Historical certificates stay completion records for the version that was completed. Corporate enrollment is not a competency score. The review cost is carried by the product and operations budget, not by cutting completion payouts. The dollar figure in D1 is an assumption.
 
 ## Still unvalidated
 
@@ -16,7 +16,7 @@ Implementation tests only. On 28 October 2026, `npm test` passed 25 tests, inclu
 
 ## What changed because of a finding
 
-The automated checks did not discover a user need. One product rule was tightened while matching this brief to the prototype: a completion-record ID is now labeled as a Course Completion Record, with version and historical context, instead of using the same screen as an unknown ID. Unknown IDs still show no personal information. That was a specification change, not interview feedback.
+The automated checks did not discover a user need. One product rule was tightened while matching this brief to the prototype: a completion-record ID is now labeled as a Course Completion record, with version and historical context, instead of using the same screen as an unknown ID. Unknown IDs still show no personal information. That was a specification change, not interview feedback.
 
 ## Next
 

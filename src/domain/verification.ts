@@ -47,7 +47,7 @@ export type PublicVerification =
       outcome: "completion_record";
       message: string;
       completedAtIso: string;
-      status: "Course Completion Record";
+      status: "Course Completion record";
       historical: boolean;
       interpretation: string;
     })
@@ -82,7 +82,7 @@ export type PublicVerification =
     });
 
 export const INVALID_MESSAGE =
-  "Not Verified. This identifier does not match a Course Completion Record or a Competency Certificate. No personal information is available for an unknown ID.";
+  "Not Verified. This identifier does not match a Course Completion record or a proof 180 Certificate. No personal information is available for an unknown ID.";
 
 export function toPublicVerification(certificate: CertificateSource | null): PublicVerification {
   if (!certificate || (certificate.status !== "verified" && certificate.status !== "revoked")) {
@@ -104,7 +104,7 @@ export function toPublicVerification(certificate: CertificateSource | null): Pub
     return {
       outcome: "revoked",
       message:
-        "Revoked. This Competency Certificate is no longer valid evidence of competency. It is not a Course Completion Record.",
+        "Revoked. This proof 180 Certificate is no longer valid evidence of competency. It is not a Course Completion record.",
       ...shared,
       status: "Revoked",
     };
@@ -113,7 +113,7 @@ export function toPublicVerification(certificate: CertificateSource | null): Pub
   return {
     outcome: "verified",
     message:
-      "Verified. This is a Competency Certificate issued after assessment and human review. It is not a Course Completion Record, and it does not guarantee employment or future job performance.",
+      "Verified. This is a proof 180 Certificate issued after assessment and human review. It is not a Course Completion record, and it does not guarantee employment or future job performance.",
     ...shared,
     outcomeLabel: certificate.outcomeLabel,
     criteriaSummary: certificate.criteriaSummary,
@@ -125,7 +125,7 @@ export function toPublicVerification(certificate: CertificateSource | null): Pub
 export function toCompletionVerification(source: CompletionSource): PublicVerification {
   const historical = source.historical
     ? `Historical Certificate. The original label was "${source.legacyLabel ?? "Certificate of Completion"}". It is preserved under the completion standard in effect on the issue date and was not upgraded.`
-    : "This is a current Course Completion Record, not a historical import.";
+    : "This is a current Course Completion record, not a historical import.";
   const revision =
     source.laterVersionLabels.length > 0
       ? `This record applies only to ${source.versionLabel}. The course now also has ${source.laterVersionLabels.join(", ")}. Finishing the earlier version does not prove the later objectives.`
@@ -134,13 +134,13 @@ export function toCompletionVerification(source: CompletionSource): PublicVerifi
   return {
     outcome: "completion_record",
     message:
-      "Course Completion Record. This confirms that the learner finished this course version. It is not a Competency Certificate and is not evidence of demonstrated competency.",
+      "Course Completion record. This confirms that the learner finished this course version. It is not a proof 180 Certificate and is not evidence of demonstrated competency.",
     recordId: source.publicId,
     learnerName: source.learnerName,
     courseTitle: source.courseTitle,
     versionLabel: source.versionLabel,
     completedAtIso: source.completedAtIso,
-    status: "Course Completion Record",
+    status: "Course Completion record",
     historical: source.historical,
     interpretation: `${historical} ${revision}`,
   };
@@ -156,10 +156,10 @@ export function toAttemptStatusVerification(source: AttemptStatusSource): Public
         ? "Pending Review"
         : "In Progress";
   const message = source.state === "not_issued"
-    ? "Not Verified / Not Issued. This assessment did not produce a Competency Certificate. It is not a verified credential."
+    ? "Not Verified / Not Issued. This assessment did not produce a proof 180 Certificate. It is not a verified credential."
     : pending
-      ? "Pending Review. A Competency Certificate has not been issued. This ID is not evidence of competency."
-      : "This assessment is still in progress. No Competency Certificate has been issued.";
+      ? "Pending Review. A proof 180 Certificate has not been issued. This ID is not evidence of competency."
+      : "This assessment is still in progress. No proof 180 Certificate has been issued.";
 
   return {
     outcome: "assessment_status",

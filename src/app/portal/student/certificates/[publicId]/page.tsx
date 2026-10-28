@@ -31,7 +31,7 @@ export default async function CertificatePage({ params }: { params: Promise<{ pu
         <PrintButton />
         {verified ? <CopyLinkButton value={sharePath} /> : null}
       </div>
-      <p className="text-xs font-semibold uppercase tracking-wider text-teal">Competency Certificate</p>
+      <p className="text-xs font-semibold tracking-wide text-teal">proof 180 Certificate</p>
       <h1 className="serif mt-2 text-4xl">{certificate.competency.name}</h1>
       <div className="mt-3">
         <StatusPill tone={verified ? "good" : "bad"}>{verified ? "Verified" : "Revoked"}</StatusPill>

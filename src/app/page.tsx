@@ -2,9 +2,9 @@ import Link from "next/link";
 import { DemoBanner } from "@/components/Chrome";
 
 const samples = [
-  { id: "CTC-4F8C1A9B2E", label: "Verified competency" },
-  { id: "CTC-77B3E2D1C8", label: "Revoked certificate" },
-  { id: "CCR-LAYLA-EXCL1", label: "Completion record" },
+  { id: "CTC-4F8C1A9B2E", label: "proof 180 Certificate" },
+  { id: "CTC-77B3E2D1C8", label: "Revoked proof 180 Certificate" },
+  { id: "CCR-LAYLA-EXCL1", label: "Course Completion record" },
   { id: "CTC-DOES-NOT-EXIST", label: "Unknown ID" },
 ];
 
@@ -30,23 +30,23 @@ export default function HomePage() {
         <p className="mt-4 max-w-3xl text-lg text-muted">
           Finishing a Career 180 course confirms that the learner completed it. It does not, by
           itself, show that the learner can perform the skill. This prototype keeps those outcomes
-          apart and gives employer partners a way to verify a Competency Certificate.
+          apart and gives employer partners a way to verify a proof 180 Certificate.
         </p>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           <article className="card completion-card p-6">
-            <p className="text-xs font-semibold uppercase tracking-wider text-slate">Course Completion Record</p>
+            <p className="text-xs font-semibold tracking-wide text-slate">Course Completion record</p>
             <h2 className="serif mt-2 text-2xl">Finished the course</h2>
             <p className="mt-2 text-muted">
-              Every eligible learner keeps a completion record. It confirms participation and
-              completion for a specific course version. It is not a competency certificate.
+              Every eligible learner keeps a Course Completion record. It confirms participation and
+              completion for a specific course version. It is not a proof 180 Certificate.
             </p>
           </article>
           <article className="card competency-card p-6">
-            <p className="text-xs font-semibold uppercase tracking-wider text-teal">Competency Certificate</p>
+            <p className="text-xs font-semibold tracking-wide text-teal">proof 180 Certificate</p>
             <h2 className="serif mt-2 text-2xl">Demonstrated the competency</h2>
             <p className="mt-2 text-muted">
-              A learner may take a Competency Assessment. A certificate is issued only after review
+              A learner may take a Competency Assessment. A proof 180 Certificate is issued only after review
               approves the result. It does not promise a job or future performance.
             </p>
           </article>
@@ -56,7 +56,7 @@ export default function HomePage() {
           <h2 className="serif text-2xl">Certificate Verification</h2>
           <p className="mt-2 max-w-3xl text-muted">
             Employer partners do not need an account. A completion-record ID never verifies as a
-            Competency Certificate.
+            proof 180 Certificate.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             {samples.map((sample) => (
@@ -73,7 +73,7 @@ export default function HomePage() {
         <section className="mt-8 grid gap-4 md:grid-cols-3">
           <Link className="card p-5" href="/portal/login">
             <h2 className="font-semibold">Student portal</h2>
-            <p className="mt-2 text-sm text-muted">Completion records, assessments, and certificates.</p>
+            <p className="mt-2 text-sm text-muted">Course Completion records, assessments, and proof 180 Certificates.</p>
           </Link>
           <Link className="card p-5" href="/portal/login">
             <h2 className="font-semibold">Reviewer queue</h2>
@@ -81,7 +81,7 @@ export default function HomePage() {
           </Link>
           <Link className="card p-5" href="/portal/partner">
             <h2 className="font-semibold">Employer partner</h2>
-            <p className="mt-2 text-sm text-muted">Check a certificate ID in one step.</p>
+            <p className="mt-2 text-sm text-muted">Check a proof 180 Certificate or a Course Completion record.</p>
           </Link>
         </section>
       </main>

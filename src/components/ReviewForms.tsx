@@ -13,7 +13,7 @@ export function ReviewForm({ attemptId, allowReturn }: { attemptId: string; allo
         <legend className="font-semibold">Decision</legend>
         <label className="flex gap-2">
           <input type="radio" name="decision" value="approve" required />
-          Approve and issue a Competency Certificate
+          Approve and issue a proof 180 Certificate
         </label>
         <label className="flex gap-2">
           <input type="radio" name="decision" value="reject" />
@@ -61,7 +61,7 @@ export function RevokeForm({ attemptId, publicId }: { attemptId: string; publicI
         </p>
       ) : null}
       <SubmitButton tone="ghost" pendingLabel="Revoking...">
-        Revoke certificate
+        Revoke proof 180 Certificate
       </SubmitButton>
     </form>
   );

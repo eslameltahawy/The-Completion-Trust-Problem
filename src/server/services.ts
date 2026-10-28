@@ -380,7 +380,7 @@ export async function decideReview(input: {
       if (prior || attempt.certificate) {
         throw new DomainError(
           "duplicate_certificate",
-          "A Competency Certificate already exists for this assessment.",
+          "A proof 180 Certificate already exists for this assessment.",
         );
       }
     }
@@ -453,7 +453,7 @@ export async function revokeCertificate(input: {
   const certificate = await prisma.competencyCertificate.findUnique({
     where: { publicId: input.certificatePublicId },
   });
-  if (!certificate) throw new DomainError("not_found", "No Competency Certificate was found.");
+  if (!certificate) throw new DomainError("not_found", "No proof 180 Certificate was found.");
   assertCertificateRevocation(certificate.status);
 
   await prisma.$transaction(async (tx) => {
@@ -462,7 +462,7 @@ export async function revokeCertificate(input: {
       data: { status: "revoked", revokedAt: new Date(), revocationReason: reason },
     });
     if (updated.count !== 1) {
-      throw new DomainError("invalid_transition", "Only a verified Competency Certificate can be revoked.");
+      throw new DomainError("invalid_transition", "Only a verified proof 180 Certificate can be revoked.");
     }
     await tx.auditLog.create({
       data: {
@@ -616,7 +616,7 @@ export async function migrateHistoricalCompletions(actorId: string | null) {
         action: "historical_migration",
         entityType: "CourseCompletionRecord",
         entityId: id,
-        detail: `Legacy certificate ${item.legacyId} was preserved as a Course Completion Record. No Competency Certificate was created.`,
+        detail: `Legacy certificate ${item.legacyId} was preserved as a Course Completion record. No proof 180 Certificate was created.`,
       },
     });
   }
@@ -645,7 +645,7 @@ export async function migrateHistoricalCompletions(actorId: string | null) {
   if (certificatesAfter !== certificatesBefore) {
     throw new DomainError(
       "migration_integrity",
-      "Historical migration must not create a Competency Certificate.",
+      "Historical migration must not create a proof 180 Certificate.",
     );
   }
   return { created: plan.toCreate.length, linked: plan.toLink.length, skipped: plan.skippedIds.length };

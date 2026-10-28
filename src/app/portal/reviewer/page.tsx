@@ -34,7 +34,7 @@ export default async function ReviewerPage({
         <p className="text-sm font-semibold uppercase tracking-wider text-muted">Reviewer</p>
         <h1 className="serif text-4xl">Assessment queue</h1>
         <p className="mt-2 max-w-3xl text-muted">
-          A proposed score never issues a Competency Certificate. Approval, rejection, and return
+          A proposed score never issues a proof 180 Certificate. Approval, rejection, and return
           each require a written reason.
         </p>
       </header>

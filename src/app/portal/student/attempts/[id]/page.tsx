@@ -41,7 +41,7 @@ export default async function AttemptPage({
       </header>
       {query.notice === "submitted" ? (
         <p className="card px-4 py-3" role="status">
-          Submitted. The result is Pending Review. A Competency Certificate has not been issued.
+          Submitted. The result is Pending Review. A proof 180 Certificate has not been issued.
         </p>
       ) : null}
       {query.error ? (
@@ -85,7 +85,7 @@ export default async function AttemptPage({
       ) : null}
       {attempt.certificate ? (
         <Link className="btn btn-teal w-fit" href={`/portal/student/certificates/${attempt.certificate.publicId}`}>
-          Open certificate {attempt.certificate.publicId}
+          Open proof 180 Certificate {attempt.certificate.publicId}
         </Link>
       ) : null}
       {attempt.integrityEvents.length > 0 ? (

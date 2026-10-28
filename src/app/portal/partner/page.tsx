@@ -27,8 +27,8 @@ export default async function PartnerPage({
         <p className="text-sm font-semibold uppercase tracking-wider text-teal">Employer partner</p>
         <h1 className="serif text-4xl sm:text-5xl">Certificate Verification</h1>
         <p className="mt-3 max-w-3xl text-lg text-muted">
-          Check a Competency Certificate without creating an account. A Course Completion Record is
-          not a verified competency credential.
+          Check a proof 180 Certificate without creating an account. A Course Completion record is
+          not a proof 180 Certificate.
         </p>
       </header>
       <form className="card grid gap-3 p-5 sm:grid-cols-[1fr_auto]" action="/portal/partner" method="get">
@@ -42,13 +42,13 @@ export default async function PartnerPage({
       </form>
       <div className="flex flex-wrap gap-2 no-print">
         <Link className="btn btn-ghost text-sm" href="/portal/partner?id=CTC-4F8C1A9B2E">
-          Verified example
+          Verified proof 180 Certificate
         </Link>
         <Link className="btn btn-ghost text-sm" href="/portal/partner?id=CTC-77B3E2D1C8">
-          Revoked example
+          Revoked proof 180 Certificate
         </Link>
         <Link className="btn btn-ghost text-sm" href="/portal/partner?id=CCR-LAYLA-EXCL1">
-          Completion record
+          Course Completion record
         </Link>
         <Link className="btn btn-ghost text-sm" href="/portal/partner?id=att-omar-sql">
           Pending Review
@@ -77,8 +77,8 @@ export default async function PartnerPage({
           <div className="no-print mb-4">
             <PrintButton />
           </div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate">Course Completion Record</p>
-          <h2 className="serif mt-2 text-4xl">This is not a Competency Certificate</h2>
+          <p className="text-xs font-semibold tracking-wide text-slate">Course Completion record</p>
+          <h2 className="serif mt-2 text-4xl">This is not a proof 180 Certificate</h2>
           <p className="mt-3 max-w-2xl">{result.message}</p>
           <dl className="mt-6 grid gap-4 sm:grid-cols-2">
             <div>
@@ -110,7 +110,7 @@ export default async function PartnerPage({
       {result?.outcome === "assessment_status" ? (
         <article className="card p-6" role="status">
           <p className="text-xs font-semibold uppercase tracking-wider text-amber">{result.status}</p>
-          <h2 className="serif mt-2 text-3xl">No Competency Certificate has been issued</h2>
+          <h2 className="serif mt-2 text-3xl">No proof 180 Certificate has been issued</h2>
           <p className="mt-3 max-w-2xl">{result.message}</p>
           <dl className="mt-6 grid gap-4 sm:grid-cols-2">
             <div>
@@ -148,7 +148,7 @@ export default async function PartnerPage({
             <PrintButton />
           </div>
           <p className="text-xs font-semibold uppercase tracking-wider text-teal">Verified</p>
-          <h2 className="serif mt-2 text-4xl">Competency Certificate</h2>
+          <h2 className="serif mt-2 text-4xl">proof 180 Certificate</h2>
           <p className="mt-3 max-w-2xl">{result.message}</p>
           <dl className="mt-6 grid gap-4 sm:grid-cols-2">
             <div>

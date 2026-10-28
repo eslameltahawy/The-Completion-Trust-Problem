@@ -2,7 +2,7 @@
 
 Completing a course confirms that a learner finished it. It does not show that they can do the skill. This prototype keeps those outcomes apart.
 
-A **Course Completion Record** confirms completion of a course version. A **Competency Certificate** exists only after a competency assessment and a reviewer's approval. Employer partners can verify a certificate ID without an account. A completion-record ID never verifies as competency.
+A **Course Completion record** confirms completion of a course version. A **proof 180 Certificate** exists only after a competency assessment and a reviewer's approval. Employer partners can verify a certificate ID without an account. A completion-record ID never verifies as competency.
 
 The repository started empty. This application was built for the Career 180 product challenge. Demo accounts are local sample data. They are not connected to Career 180 production systems.
 
@@ -10,7 +10,7 @@ The repository started empty. This application was built for the Career 180 prod
 
 - Student, `/portal/student`: completions and certificates are separate. The learner can open a completion record, start an eligible assessment, and see review status.
 - Reviewer, `/portal/reviewer`: queue, evidence, rubric, proposed result, and approve, reject, or return with a reason.
-- Employer partner, `/portal/partner`: enter an ID and see a Competency Certificate (Verified or Revoked), a Course Completion Record, Pending Review, Not Verified / Not Issued, or an unknown ID with no personal information.
+- Employer partner, `/portal/partner`: enter an ID and see a proof 180 Certificate (Verified or Revoked), a Course Completion record, Pending Review, Not Verified / Not Issued, or an unknown ID with no personal information.
 
 ## Stack
 
@@ -51,8 +51,8 @@ Password: `demo-pass`.
 
 Partner checks need no login. Try these IDs:
 
-- `CTC-4F8C1A9B2E` — Verified Competency Certificate
-- `CCR-LAYLA-EXCL1` — Historical Certificate and Course Completion Record, not competency
+- `CTC-4F8C1A9B2E` — Verified proof 180 Certificate
+- `CCR-LAYLA-EXCL1` — Historical Certificate and Course Completion record, not competency
 - `att-omar-sql` — Pending Review, no certificate issued
 - `att-yusuf-2` — Not Verified / Not Issued
 - `CTC-77B3E2D1C8` — Revoked

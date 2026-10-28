@@ -13,7 +13,7 @@ const legacy = {
 };
 
 describe("historical migration plan", () => {
-  it("creates a completion record and never a competency certificate", () => {
+  it("creates a completion record and never a proof 180 Certificate", () => {
     const plan = planHistoricalMigration([legacy], []);
     expect(plan.toCreate).toHaveLength(1);
     expect(plan.toCreate[0]?.source).toBe("historical_import");

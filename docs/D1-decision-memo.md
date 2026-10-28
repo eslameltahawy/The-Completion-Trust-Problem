@@ -12,13 +12,13 @@ The product should not ask employers to trust every certificate in the same way.
 
 **Product decision.** The product separates two outcomes.
 
-A **Course Completion Record** is issued for an eligible completion. It confirms completion of a named course version. It is not a competency certificate and must not be read as one.
+A **Course Completion record** is issued for an eligible completion. It confirms completion of a named course version. It is not a proof 180 Certificate and must not be read as one.
 
-A **Competency Certificate** is possible only after a Competency Assessment, an evidence package, and human review. In this MVP every certificate requires reviewer approval. The demo evaluator may propose pass or fail. That proposal never issues a certificate, even when a numeric score is above a configured line.
+A **proof 180 Certificate** is possible only after a Competency Assessment, an evidence package, and human review. In this MVP every certificate requires reviewer approval. The demo evaluator may propose pass or fail. That proposal never issues a certificate, even when a numeric score is above a configured line.
 
 **Product decision.** The certificate names the competency, the criteria, the outcome, and a public ID. It does not claim employability, professional success, or future job performance.
 
-Employer partners verify an ID without an account. A Competency Certificate can be Verified or Revoked. A Course Completion Record is shown as completion only, including when it is a Historical Certificate or belongs to an older course version. A pending or unapproved assessment is shown as not issued. An unknown ID returns Not Verified and no personal information.
+Employer partners verify an ID without an account. A proof 180 Certificate can be Verified or Revoked. A Course Completion record is shown as completion only, including when it is a Historical Certificate or belongs to an older course version. A pending or unapproved assessment is shown as not issued. An unknown ID returns Not Verified and no personal information.
 
 ## Courses without an assessment
 
@@ -28,7 +28,7 @@ If the learner completed an older version and the assessment exists only on a la
 
 ## Historical certificates
 
-**Product decision.** Older completion documents remain completion records. They are not upgraded. The original date, label, and course version are kept. Migration is idempotent: a second run does not create another record or any Competency Certificate, and it writes an audit row. The demonstration uses fictional sample data only.
+**Product decision.** Older completion documents remain completion records. They are not upgraded. The original date, label, and course version are kept. Migration is idempotent: a second run does not create another record or any proof 180 Certificate, and it writes an audit row. The demonstration uses fictional sample data only.
 
 **Assumption / hypothesis.** Production history will be incomplete. Where the course version cannot be recovered, the record should stay a completion and say that the version is unknown, rather than guessing a competency.
 
@@ -40,7 +40,7 @@ If the learner completed an older version and the assessment exists only on a la
 
 Three incentives compete. **Brief-backed.** Content and instructors are paid and measured on low-friction completion. Employer partnerships need evidence they can defend. Growth and marketing need a number that still means something.
 
-**Product decision.** Course completion stays the existing completion event. It is not redefined. Instructor payouts stay tied to completion, not to competency certificates. Competency is an optional second process. Growth must not report certificates issued as if they were courses completed.
+**Product decision.** Course completion stays the existing completion event. It is not redefined. Instructor payouts stay tied to completion, not to proof 180 Certificates. Competency is an optional second process. Growth must not report certificates issued as if they were courses completed.
 
 **Assumption / hypothesis, not Career 180 financial data.** A first pilot of about 200 submitted assessments a month, at 15 minutes of review each, is about 50 reviewer hours a month. At an assumed fully loaded rate of $30 an hour, that is about $1,500 a month. The product and operations budget bears that cost. Content does not fund it through a lower completion payout. If volume is twice as high, the hours and the cost double. If reviewers cannot keep the median decision inside five business days, the response is to narrow which courses offer assessment, not to auto-issue certificates.
 

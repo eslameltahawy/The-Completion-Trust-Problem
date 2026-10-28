@@ -6,7 +6,7 @@ Do not start by blaming the trust model. Separate three explanations.
 
 **The data is wrong or incomplete** if the ID points at the wrong person, the wrong course version, a historical import with a missing date, or a status that does not match the review record. Example: a version 1 completion is described as if it covered version 2.
 
-**The partner expected something else** if they believed Verified meant "ready to hire" or that a Course Completion Record was a competency credential. The certificate does not promise employment or future performance.
+**The partner expected something else** if they believed Verified meant "ready to hire" or that a Course Completion record was a competency credential. The certificate does not promise employment or future performance.
 
 First checks, in order:
 

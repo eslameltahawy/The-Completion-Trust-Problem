@@ -38,7 +38,7 @@ export default async function AssessmentIntroPage({
       ) : null}
       {!intro.definition || !canStart ? (
         <section className="card p-6">
-          <h2 className="serif text-2xl">A certificate cannot be started from here</h2>
+          <h2 className="serif text-2xl">A proof 180 Certificate cannot be started from here</h2>
           <p className="mt-3">
             {"explanation" in intro.course.progress
               ? intro.course.progress.explanation
@@ -75,11 +75,11 @@ export default async function AssessmentIntroPage({
             </p>
             <p>
               {intro.definition.passingScoreHypothesis
-                ? `A score of ${intro.definition.passingScoreHypothesis}% is an unvalidated passing hypothesis. It does not issue a certificate.`
+                ? `A score of ${intro.definition.passingScoreHypothesis}% is an unvalidated passing hypothesis. It does not issue a proof 180 Certificate.`
                 : "This assessment uses rubric levels. It does not treat an answer-similarity percentage as proof of competency."}
             </p>
             <p>
-              Human review is required. Submission moves the attempt to Pending Review. A Competency
+              Human review is required. Submission moves the attempt to Pending Review. A proof 180
               Certificate is issued only after a reviewer approves it.
             </p>
             <p>
@@ -104,7 +104,7 @@ export default async function AssessmentIntroPage({
           </label>
           <label className="flex gap-3">
             <input type="checkbox" name="acknowledged" value="yes" required />
-            <span>I have read the rules and understand that course completion alone will not issue a certificate.</span>
+            <span>I have read the rules and understand that a Course Completion record alone will not issue a proof 180 Certificate.</span>
           </label>
           <SubmitButton tone="teal" pendingLabel="Starting...">
             Start assessment
