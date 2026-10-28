@@ -1,0 +1,28 @@
+"use server";
+
+import { redirect } from "next/navigation";
+import { isDomainError } from "@/domain/errors";
+import { login, logout } from "@/server/auth";
+import { rethrowIfRedirect } from "@/server/http";
+
+export async function loginAction(_prev: { error: string }, formData: FormData) {
+  try {
+    const user = await login(String(formData.get("email") ?? ""), String(formData.get("password") ?? ""));
+    redirect(user.role === "reviewer" ? "/portal/reviewer" : "/portal/student");
+  } catch (error) {
+    rethrowIfRedirect(error);
+    return { error: isDomainError(error) ? error.message : "Sign-in failed." };
+  }
+}
+
+export async function loginFromForm(formData: FormData) {
+  const result = await loginAction({ error: "" }, formData);
+  if (result?.error) {
+    redirect(`/portal/login?error=${encodeURIComponent(result.error)}`);
+  }
+}
+
+export async function logoutAction() {
+  await logout();
+  redirect("/");
+}

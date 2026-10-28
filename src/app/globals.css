@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f3efe6;
+  --color-ink: #1b2430;
+  --color-muted: #3e4a57;
+  --color-line: #ddd4c4;
+  --color-card: #fffdf8;
+  --color-teal: #0e5c56;
+  --color-teal-soft: #e5f3f1;
+  --color-slate: #3d4c5f;
+  --color-slate-soft: #ece7de;
+  --color-amber: #8a5a12;
+  --color-amber-soft: #f8efd8;
+  --color-red: #8d2f2f;
+  --color-red-soft: #f8e8e6;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans), "Segoe UI", sans-serif;
+}
+
+.serif {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  background: var(--color-ink);
+  color: white;
+  padding: 0.5rem 0.8rem;
+  z-index: 20;
+}
+
+.skip:focus {
+  top: 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.65rem 1.05rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+}
+
+.btn-primary {
+  background: var(--color-ink);
+  color: white;
+}
+
+.btn-teal {
+  background: var(--color-teal);
+  color: white;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--color-line);
+  color: var(--color-ink);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  border: 1px solid var(--color-line);
+  background: white;
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.85rem;
+  font: inherit;
+  color: inherit;
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible,
+.field select:focus-visible,
+.btn:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 2px;
+}
+
+.card {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: 1.25rem;
+}
+
+.completion-card {
+  border-left: 6px solid var(--color-slate);
+}
+
+.competency-card {
+  border-left: 6px solid var(--color-teal);
+  background: linear-gradient(180deg, var(--color-teal-soft), var(--color-card) 72px);
+}
+
+.sheet {
+  background: white;
+  border: 1px solid var(--color-line);
+  border-radius: 1.25rem;
+  padding: 2rem;
+}
+
+.sheet-completion {
+  box-shadow: inset 0 0 0 1px var(--color-slate-soft);
+}
+
+.sheet-competency {
+  box-shadow: inset 0 0 0 2px var(--color-teal);
+}
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .sheet {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+}

@@ -1,0 +1,14 @@
+# D7 — Edge Case and Policy Register
+
+| Case | Trigger | Policy and system behavior | Owner | Unresolved risk |
+| --- | --- | --- | --- | --- |
+| No assessment | Course version has no assessment definition. Sample: Workplace Communication, `CCR-AMIRA-COMM1`. | State is Assessment Design Required. No questions are invented and no certificate can start. | Assessment design | A completion record may still be presented informally as skill proof. |
+| Course changes after issue | Excel moves from v1 to v2. Layla's record is `CCR-LAYLA-EXCL1` on v1. Amira's `CCR-AMIRA-EXCL2` is v2. | The old record keeps v1 and its date. v1 is Not Yet Eligible for the v2 quiz. A v2 certificate would name v2 only. | Content operations | Historical rows with no version should stay unlabeled rather than be guessed. |
+| Failed assessment | Proposal is fail and the reviewer agrees. Sample: Yusuf `att-yusuf-1`. | Not Verified / Not Issued. No certificate. The learner sees the decision reason. | Reviewer | A fail must not be described to employers as a verified negative credential. |
+| Attempts exhausted | Yusuf's second data attempt, `att-yusuf-2`. Limit is 2. | No further start. The limit is a hypothesis, not a validated policy. | Product | The right limit is unknown. D3 should test it before it is treated as fair. |
+| Integrity signal | Tab hidden, or a seeded prototype signal. Omar `att-omar-agile`. | The signal is a review indicator. It does not auto-reject. Omar's attempt was returned, not failed. Partners never see the signal. Camera and screen are never used. | Reviewer, with privacy review | A reviewer could still overweight one signal. The UI says not to. |
+| Invalid or completion ID | `CTC-DOES-NOT-EXIST`, or `CCR-LAYLA-EXCL1` on the partner page. | An unknown ID returns Not Verified and no personal data. A completion-record ID is shown as a Course Completion Record, with version and historical context, and is not labeled Verified. | Partner experience | Partners may still read a missing certificate as "failed." See D3 and D9. |
+| Duplicate issuance | A second approval, or two certificates for one attempt. | The state machine rejects the second decision. The certificate row is unique per attempt. | Engineering | Concurrent approvals rely on a conditional update plus that unique key. |
+| Revocation | Post-issue dispute. Sample: `CTC-77B3E2D1C8`. | Status becomes Revoked. The partner sees status, not the internal reason or answers. A new certificate is not created automatically. | Review lead | The appeal path after revocation is not built. |
+
+Extended time for Karim (`att-karim-disc`) is recorded as a sample accommodation, not a medical record. It does not by itself issue or deny a certificate.

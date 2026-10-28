@@ -1,0 +1,24 @@
+  completion[CourseCompletionRecord]
+  gate{EligibleForThisVersion}
+  designRequired[AssessmentDesignRequired]
+  notEligible[NotYetEligible]
+  attempt[CompetencyAssessment]
+  proposal[DemoEvaluatorProposal]
+  review[HumanReview]
+  issued[VerifiedCompetencyCertificate]
+  denied[NotVerified]
+  partner[EmployerPartnerCheck]
+  completionRecord[ShownAsCompletionOnly]
+  completion --> gate
+  completion --> completionRecord
+  gate -->|no assessment exists| designRequired
+  gate -->|assessment is on another version| notEligible
+  gate -->|learner owns the matching completion| attempt
+  attempt --> proposal
+  proposal --> review
+  review -->|approve with reason| issued
+  review -->|reject with reason| denied
+  issued --> partner
+  denied --> partner
+  completionRecord --> partner
+  completion -.->|never becomes| issued

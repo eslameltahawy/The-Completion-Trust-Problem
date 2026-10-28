@@ -1,0 +1,294 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Learners and reviewers share one table. Role is learner or reviewer.
+model User {
+  id           String   @id
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         String
+  segment      String?
+  organization String?
+  createdAt    DateTime @default(now())
+
+  completions  CourseCompletionRecord[]
+  attempts     AssessmentAttempt[]
+  decisions    ReviewerDecision[]
+  certificates CompetencyCertificate[]
+  sessions     Session[]
+}
+
+model Course {
+  id       String          @id
+  title    String
+  summary  String
+  versions CourseVersion[]
+}
+
+model CourseVersion {
+  id             String   @id
+  courseId       String
+  versionLabel   String
+  summary        String
+  objectivesJson String
+  isCurrent      Boolean
+  publishedAt    DateTime
+
+  course       Course                     @relation(fields: [courseId], references: [id])
+  completions  CourseCompletionRecord[]
+  definitions  AssessmentDefinition[]
+  certificates CompetencyCertificate[]
+
+  @@unique([courseId, versionLabel])
+}
+
+model CourseCompletionRecord {
+  id                  String   @id
+  publicId            String   @unique
+  learnerId           String
+  courseVersionId     String
+  completedAt         DateTime
+  source              String
+  legacyCertificateId String?  @unique
+  legacyLabel         String?
+  createdAt           DateTime @default(now())
+
+  learner       User                @relation(fields: [learnerId], references: [id])
+  courseVersion CourseVersion       @relation(fields: [courseVersionId], references: [id])
+  attempts      AssessmentAttempt[]
+
+  @@index([learnerId, courseVersionId])
+}
+
+// Historical completion certificates imported as records. Never a competency credential.
+model LegacyCertificate {
+  id                   String    @id
+  learnerId            String
+  courseVersionId      String
+  issuedAt             DateTime
+  label                String
+  statement            String
+  completionPublicId   String
+  migratedToId         String?
+  createdAt            DateTime  @default(now())
+}
+
+model Competency {
+  id          String  @id
+  courseId    String
+  name        String
+  description String
+
+  definitions  AssessmentDefinition[]
+  certificates CompetencyCertificate[]
+}
+
+model AssessmentDefinition {
+  id                     String  @id
+  courseVersionId        String
+  competencyId           String
+  method                 String
+  title                  String
+  description            String
+  durationMinutes        Int
+  maxAttempts            Int
+  passingScoreHypothesis Int?
+  reviewRequired         Boolean
+  policySummary          String
+
+  courseVersion CourseVersion       @relation(fields: [courseVersionId], references: [id])
+  competency    Competency          @relation(fields: [competencyId], references: [id])
+  versions      AssessmentVersion[]
+}
+
+model AssessmentVersion {
+  id           String   @id
+  definitionId String
+  versionLabel String
+  status       String
+  publishedAt  DateTime
+
+  definition   AssessmentDefinition  @relation(fields: [definitionId], references: [id])
+  questions    Question[]
+  criteria     RubricCriterion[]
+  attempts     AssessmentAttempt[]
+  certificates CompetencyCertificate[]
+
+  @@unique([definitionId, versionLabel])
+}
+
+model RubricCriterion {
+  id                  String  @id
+  assessmentVersionId String
+  name                String
+  description         String
+  requiredForPass     Boolean
+
+  assessmentVersion AssessmentVersion @relation(fields: [assessmentVersionId], references: [id])
+  questions         Question[]
+}
+
+model Question {
+  id                   String  @id
+  assessmentVersionId  String
+  criterionId          String?
+  orderIndex           Int
+  type                 String
+  prompt               String
+  context              String?
+  optionsJson          String?
+  correctOptionKey     String?
+  expectedElementsJson String
+
+  assessmentVersion AssessmentVersion @relation(fields: [assessmentVersionId], references: [id])
+  criterion         RubricCriterion?  @relation(fields: [criterionId], references: [id])
+  answers           Answer[]
+}
+
+model AssessmentAttempt {
+  id                   String    @id
+  learnerId            String
+  assessmentVersionId  String
+  completionRecordId   String
+  attemptNumber        Int
+  state                String
+  startedAt            DateTime
+  deadlineAt           DateTime
+  submittedAt          DateTime?
+  policyAcknowledgedAt DateTime
+  integrityConsent     Boolean
+  accommodationNote    String?
+
+  learner           User                     @relation(fields: [learnerId], references: [id])
+  assessmentVersion AssessmentVersion        @relation(fields: [assessmentVersionId], references: [id])
+  completionRecord  CourseCompletionRecord   @relation(fields: [completionRecordId], references: [id])
+  answers           Answer[]
+  evaluation        EvaluationResult?
+  evidence          AssessmentEvidence?
+  integrityEvents   IntegrityEvent[]
+  decisions         ReviewerDecision[]
+  certificate       CompetencyCertificate?
+
+  @@unique([learnerId, assessmentVersionId, attemptNumber])
+}
+
+model Answer {
+  id         String   @id
+  attemptId  String
+  questionId String
+  value      String
+  savedAt    DateTime
+
+  attempt  AssessmentAttempt @relation(fields: [attemptId], references: [id])
+  question Question          @relation(fields: [questionId], references: [id])
+
+  @@unique([attemptId, questionId])
+}
+
+model EvaluationResult {
+  id                   String   @id
+  attemptId            String   @unique
+  method               String
+  proposedOutcome      String
+  scorePercent         Int?
+  rationale            String
+  hypothesisLabel      String
+  criterionResultsJson String
+  createdAt            DateTime @default(now())
+
+  attempt AssessmentAttempt @relation(fields: [attemptId], references: [id])
+}
+
+model AssessmentEvidence {
+  id          String   @id
+  attemptId   String   @unique
+  summary     String
+  packageJson String
+  createdAt   DateTime @default(now())
+
+  attempt AssessmentAttempt @relation(fields: [attemptId], references: [id])
+}
+
+model IntegrityEvent {
+  id         String   @id
+  attemptId  String
+  eventType  String
+  source     String
+  note       String
+  occurredAt DateTime
+
+  attempt AssessmentAttempt @relation(fields: [attemptId], references: [id])
+}
+
+model ReviewerDecision {
+  id                   String   @id
+  attemptId            String
+  reviewerId           String
+  decision             String
+  reason               String
+  priorProposedOutcome String
+  materialChange       Boolean
+  createdAt            DateTime @default(now())
+
+  attempt  AssessmentAttempt @relation(fields: [attemptId], references: [id])
+  reviewer User              @relation(fields: [reviewerId], references: [id])
+}
+
+model CompetencyCertificate {
+  id                  String    @id
+  publicId            String    @unique
+  attemptId           String    @unique
+  learnerId           String
+  courseVersionId     String
+  assessmentVersionId String
+  competencyId        String
+  status              String
+  outcomeLabel        String
+  criteriaSummary     String
+  evidenceSummary     String
+  issuedAt            DateTime
+  revokedAt           DateTime?
+  revocationReason    String?
+
+  attempt           AssessmentAttempt @relation(fields: [attemptId], references: [id])
+  learner           User              @relation(fields: [learnerId], references: [id])
+  courseVersion     CourseVersion     @relation(fields: [courseVersionId], references: [id])
+  assessmentVersion AssessmentVersion @relation(fields: [assessmentVersionId], references: [id])
+  competency        Competency        @relation(fields: [competencyId], references: [id])
+}
+
+model CertificateVerificationEvent {
+  id            String   @id
+  queriedId     String
+  outcome       String
+  certificateId String?
+  createdAt     DateTime @default(now())
+}
+
+model AuditLog {
+  id         String   @id
+  actorId    String?
+  action     String
+  entityType String
+  entityId   String
+  detail     String
+  createdAt  DateTime @default(now())
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}

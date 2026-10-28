@@ -1,0 +1,22 @@
+flowchart TD
+  notStarted[AssessmentNotStarted]
+  inProgress[InProgress]
+  submitted[Submitted]
+  pending[PendingReview]
+  returned[ReturnedForFurtherReview]
+  verified[Verified]
+  notIssued[NotVerifiedNotIssued]
+  revoked[Revoked]
+  legacy[LegacyCompletionDocument]
+  record[CourseCompletionRecord]
+  notStarted --> inProgress
+  inProgress --> submitted
+  submitted --> pending
+  pending --> verified
+  pending --> notIssued
+  pending --> returned
+  returned --> verified
+  returned --> notIssued
+  verified --> revoked
+  legacy --> record
+  record -.->|no upgrade path| verified

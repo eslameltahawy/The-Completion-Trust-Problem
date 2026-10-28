@@ -1,0 +1,26 @@
+flowchart TD
+  partner[EmployerPartner]
+  form[EnterId]
+  shape{IdShapeValid}
+  kind{WhatWasFound}
+  verified[VerifiedCompetencyCertificate]
+  revoked[RevokedCompetencyCertificate]
+  completion[CourseCompletionRecord]
+  historical[HistoricalOrRevisedVersionNote]
+  pending[PendingOrNotIssued]
+  invalid[UnknownIdNoPersonalData]
+  withheld[NoAnswersNotesOrSignals]
+  partner --> form
+  form --> shape
+  shape -->|illegal characters| invalid
+  shape -->|well formed| kind
+  kind -->|approved certificate| verified
+  kind -->|revoked certificate| revoked
+  kind -->|completion record| completion
+  completion --> historical
+  kind -->|attempt without a certificate| pending
+  kind -->|no match| invalid
+  verified --> withheld
+  revoked --> withheld
+  historical --> withheld
+  pending --> withheld
