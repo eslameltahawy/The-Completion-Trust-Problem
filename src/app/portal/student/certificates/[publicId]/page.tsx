@@ -31,7 +31,7 @@ export default async function CertificatePage({ params }: { params: Promise<{ pu
     <article className={verified ? "sheet sheet-competency" : "sheet"}>
       <div className="no-print mb-6 flex flex-wrap gap-2">
         <Link className="btn btn-ghost" href="/portal/student">
-          {locale === "ar" ? "العودة إلى اللوحة" : "Back to dashboard"}
+          {t.backDashboard}
         </Link>
         <PrintButton />
         {verified ? <CopyLinkButton value={sharePath} /> : null}
@@ -44,39 +44,38 @@ export default async function CertificatePage({ params }: { params: Promise<{ pu
       <p className="mt-4 max-w-2xl">{verified ? t.employment : t.revokedBody}</p>
       <dl className="mt-6 grid gap-4 sm:grid-cols-2">
         <div>
-          <dt className="text-sm text-muted">Certificate ID</dt>
+          <dt className="text-sm text-muted">{t.certificateId}</dt>
           <dd className="font-semibold">{certificate.publicId}</dd>
         </div>
         <div>
-          <dt className="text-sm text-muted">Learner</dt>
+          <dt className="text-sm text-muted">{t.learner}</dt>
           <dd className="font-semibold">{certificate.learner.name}</dd>
         </div>
         <div>
-          <dt className="text-sm text-muted">Course</dt>
+          <dt className="text-sm text-muted">{t.course}</dt>
           <dd className="font-semibold">
-            {certificate.courseVersion.course.title} · {certificate.courseVersion.versionLabel}
+            {phrase(locale, certificate.courseVersion.course.title)} · {certificate.courseVersion.versionLabel}
           </dd>
         </div>
         <div>
-          <dt className="text-sm text-muted">Assessment date</dt>
-          <dd className="font-semibold">{formatDate(certificate.attempt.submittedAt ?? certificate.issuedAt)}</dd>
+          <dt className="text-sm text-muted">{t.assessmentDate}</dt>
+          <dd className="font-semibold">{formatDate(certificate.attempt.submittedAt ?? certificate.issuedAt, locale)}</dd>
         </div>
         <div>
-          <dt className="text-sm text-muted">Outcome</dt>
-          <dd className="font-semibold">{certificate.outcomeLabel}</dd>
+          <dt className="text-sm text-muted">{t.outcome}</dt>
+          <dd className="font-semibold">{phrase(locale, certificate.outcomeLabel)}</dd>
         </div>
       </dl>
-      <h2 className="mt-6 font-semibold">Evaluation criteria</h2>
-      <p className="mt-2">{certificate.criteriaSummary}</p>
-      <h2 className="mt-6 font-semibold">Assessment evidence</h2>
-      <p className="mt-2">{certificate.evidenceSummary}</p>
+      <h2 className="mt-6 font-semibold">{t.criteria}</h2>
+      <p className="mt-2">{phrase(locale, certificate.criteriaSummary)}</p>
+      <h2 className="mt-6 font-semibold">{t.evidence}</h2>
+      <p className="mt-2">{phrase(locale, certificate.evidenceSummary)}</p>
       {!verified && certificate.revocationReason ? (
-        <p className="mt-4">Revocation note: {certificate.revocationReason}</p>
+        <p className="mt-4">
+          {t.revocationNote}: {certificate.revocationReason}
+        </p>
       ) : null}
-      <p className="mt-6 text-sm text-muted">
-        Employer partners can verify this ID at {sharePath}. Answers and integrity signals are not
-        included in that check.
-      </p>
+      <p className="mt-6 text-sm text-muted">{t.partnerShare}</p>
     </article>
   );
 }

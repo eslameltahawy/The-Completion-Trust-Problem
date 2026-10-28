@@ -46,6 +46,10 @@ const ar: Record<string, string> = {
   "The learner can distinguish a sprint goal from a task list and name a tradeoff.":
     "يستطيع المتعلّم التمييز بين هدف السبرنت وقائمة المهام، وتسمية التنازل المطلوب.",
   "Automatically graded quiz": "اختبار يُصحَّح تلقائيًا",
+  auto_graded_quiz: "اختبار يُصحَّح تلقائيًا",
+  scenario_short_answer: "تقييم بموقف عملي وإجابات قصيرة",
+  practical_task: "مهمة عملية",
+  simulated_integrity_quiz: "اختبار وموقف عملي مع إشارات نزاهة تجريبية",
   "Scenario and short-answer assessment": "تقييم بموقف عملي وإجابات قصيرة",
   "Practical task": "مهمة عملية",
   "Quiz and scenario with prototype integrity signals": "اختبار وموقف عملي مع إشارات نزاهة تجريبية",
@@ -85,8 +89,8 @@ const ar: Record<string, string> = {
   "Assessment Design Required": "تصميم التقييم مطلوب",
   "Not Yet Eligible": "غير مؤهل بعد",
   "Assessment Not Started": "التقييم لم يبدأ",
-  learner: "متعلّم",
-  reviewer: "مراجع",
+  learner: "المتعلّم",
+  reviewer: "المراجع",
   "Certificate of Completion": "شهادة إتمام",
   "A reviewer approved issuance after the assessment was checked against the published rubric. The public summary omits answers, integrity signals, and reviewer notes. A score, where one exists, did not issue this certificate by itself.":
     "وافق المراجع على الإصدار بعد مراجعة التقييم وفق المعيار المنشور. الملخص العام لا يعرض الإجابات ولا إشارات النزاهة ولا ملاحظات المراجع. الدرجة، إن وُجدت، لم تُصدر الشهادة وحدها.",
@@ -195,12 +199,49 @@ const ar: Record<string, string> = {
     "سؤالان عن أهداف النسخة الثانية. إتمام النسخة الأولى غير مؤهل.",
   "A quiz and two written answers. Optional tab-visibility signals may be recorded. This is not camera or screen monitoring.":
     "اختبار وإجابتان مكتوبتان. قد تُسجَّل إشارات إخفاء الصفحة اختياريًا. هذا ليس مراقبة بالكاميرا أو للشاشة.",
+  demonstrated: "أُثبتت",
+  "not demonstrated": "لم تُثبت",
+  partial: "جزئي",
+  pass: "نجاح",
+  fail: "عدم النجاح",
+  "Text checks look for explicit expected elements. That rule is a demo heuristic, not a validated measure of mastery.":
+    "يفحص النص وجود العناصر المتوقعة صراحة. هذه قاعدة تجريبية، وليست مقياسًا معتمدًا للإتقان.",
+  "Extended time (1.5x) is recorded as a sample accessibility accommodation. It is not a medical record.":
+    "الوقت الإضافي (مرة ونصف) مسجّل كمثال على تيسير الوصول. وهو ليس سجلًا طبيًا.",
+  visibility_hidden: "إخفاء الصفحة",
+  approve: "موافقة",
+  reject: "رفض",
+  return: "إعادة",
 };
 
-export function phrase(locale: Locale, text: string | null | undefined) {
+function translateDynamic(text: string): string | null {
+  const score = text.match(
+    /^A score of (\d+)% or higher is an unvalidated passing hypothesis, not a calibrated standard\.$/,
+  );
+  if (score) {
+    return `درجة ${score[1]}% أو أعلى فرضية نجاح غير معتمدة، وليست معيارًا مُعايَرًا.`;
+  }
+  const quiz = text.match(/^Quiz score (\d+)% compared with the unvalidated hypothesis of (\d+)%\.$/);
+  if (quiz) {
+    return `درجة الاختبار ${quiz[1]}% مقارنة بفرضية غير معتمدة قدرها ${quiz[2]}%.`;
+  }
+  const proposal = text.match(
+    /^Demo evaluator proposed (pass|fail)\. (.+) This proposal cannot issue a proof 180 Certificate\.$/,
+  );
+  if (proposal) {
+    const outcome = proposal[1] === "pass" ? "النجاح" : "عدم النجاح";
+    const detail = ar[proposal[2]] ?? translateDynamic(proposal[2]) ?? proposal[2];
+    return `اقترح المقيّم التجريبي ${outcome}. ${detail} هذا الاقتراح لا يصدر proof 180 Certificate.`;
+  }
+  return null;
+}
+
+export function phrase(locale: Locale, text: string | null | undefined): string {
   if (!text) return "";
   if (locale === "en") return text;
   if (ar[text]) return ar[text];
+  const dynamic = translateDynamic(text);
+  if (dynamic) return dynamic;
   if (text.includes(" — ") || text.includes("; ")) {
     return text
       .split("; ")
