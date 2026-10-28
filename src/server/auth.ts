@@ -1,10 +1,9 @@
-import { createHmac, randomBytes } from "node:crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { DomainError } from "@/domain/errors";
-import { newId } from "@/domain/ids";
 import { prisma } from "./db";
 import { verifyPassword } from "./password";
+import { readSession, signSession } from "./session-cookie";
 
 const COOKIE = "ctp_session";
 const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
@@ -15,20 +14,13 @@ function secret() {
   return value;
 }
 
-function hashToken(token: string) {
-  return createHmac("sha256", secret()).update(token).digest("hex");
-}
-
 export async function getCurrentUser() {
   const jar = await cookies();
   const token = jar.get(COOKIE)?.value;
   if (!token) return null;
-  const session = await prisma.session.findUnique({
-    where: { tokenHash: hashToken(token) },
-    include: { user: true },
-  });
-  if (!session || session.expiresAt.getTime() < Date.now()) return null;
-  return session.user;
+  const session = readSession(token, secret());
+  if (!session) return null;
+  return prisma.user.findUnique({ where: { id: session.userId } });
 }
 
 export async function login(email: string, password: string) {
@@ -38,18 +30,9 @@ export async function login(email: string, password: string) {
   if (!user || !verifyPassword(password, user.passwordHash)) {
     throw new DomainError("invalid_login", "Email or password is incorrect.");
   }
-  const token = randomBytes(32).toString("hex");
   const expiresAt = new Date(Date.now() + WEEK_MS);
-  await prisma.session.create({
-    data: {
-      id: newId("ses"),
-      userId: user.id,
-      tokenHash: hashToken(token),
-      expiresAt,
-    },
-  });
   const jar = await cookies();
-  jar.set(COOKIE, token, {
+  jar.set(COOKIE, signSession(user.id, expiresAt.getTime(), secret()), {
     httpOnly: true,
     sameSite: "lax",
     path: "/",
@@ -61,10 +44,6 @@ export async function login(email: string, password: string) {
 
 export async function logout() {
   const jar = await cookies();
-  const token = jar.get(COOKIE)?.value;
-  if (token) {
-    await prisma.session.deleteMany({ where: { tokenHash: hashToken(token) } });
-  }
   jar.delete(COOKIE);
 }
 
