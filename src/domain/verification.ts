@@ -1,3 +1,6 @@
+import { verificationText } from "@/i18n/verification-text";
+import type { Locale } from "@/i18n/locale";
+
 export interface CertificateSource {
   status: string;
   publicId: string;
@@ -81,12 +84,15 @@ export type PublicVerification =
       status: "Revoked";
     });
 
-export const INVALID_MESSAGE =
-  "Not Verified. This identifier does not match a Course Completion record or a proof 180 Certificate. No personal information is available for an unknown ID.";
+export const INVALID_MESSAGE = verificationText("en").invalid;
 
-export function toPublicVerification(certificate: CertificateSource | null): PublicVerification {
+export function toPublicVerification(
+  certificate: CertificateSource | null,
+  locale: Locale = "en",
+): PublicVerification {
+  const text = verificationText(locale);
   if (!certificate || (certificate.status !== "verified" && certificate.status !== "revoked")) {
-    return { outcome: "invalid", message: INVALID_MESSAGE };
+    return { outcome: "invalid", message: text.invalid };
   }
 
   const shared = {
@@ -103,8 +109,7 @@ export function toPublicVerification(certificate: CertificateSource | null): Pub
   if (certificate.status === "revoked") {
     return {
       outcome: "revoked",
-      message:
-        "Revoked. This proof 180 Certificate is no longer valid evidence of competency. It is not a Course Completion record.",
+      message: text.revoked,
       ...shared,
       status: "Revoked",
     };
@@ -112,8 +117,7 @@ export function toPublicVerification(certificate: CertificateSource | null): Pub
 
   return {
     outcome: "verified",
-    message:
-      "Verified. This is a proof 180 Certificate issued after assessment and human review. It is not a Course Completion record, and it does not guarantee employment or future job performance.",
+    message: text.verified,
     ...shared,
     outcomeLabel: certificate.outcomeLabel,
     criteriaSummary: certificate.criteriaSummary,
@@ -122,19 +126,18 @@ export function toPublicVerification(certificate: CertificateSource | null): Pub
   };
 }
 
-export function toCompletionVerification(source: CompletionSource): PublicVerification {
-  const historical = source.historical
-    ? `Historical Certificate. The original label was "${source.legacyLabel ?? "Certificate of Completion"}". It is preserved under the completion standard in effect on the issue date and was not upgraded.`
-    : "This is a current Course Completion record, not a historical import.";
+export function toCompletionVerification(source: CompletionSource, locale: Locale = "en"): PublicVerification {
+  const text = verificationText(locale);
+  const label = source.legacyLabel ?? "Certificate of Completion";
+  const historical = source.historical ? text.historical(label) : text.current;
   const revision =
     source.laterVersionLabels.length > 0
-      ? `This record applies only to ${source.versionLabel}. The course now also has ${source.laterVersionLabels.join(", ")}. Finishing the earlier version does not prove the later objectives.`
-      : `This record applies to ${source.versionLabel} only.`;
+      ? text.revision(source.versionLabel, source.laterVersionLabels.join(", "))
+      : text.onlyVersion(source.versionLabel);
 
   return {
     outcome: "completion_record",
-    message:
-      "Course Completion record. This confirms that the learner finished this course version. It is not a proof 180 Certificate and is not evidence of demonstrated competency.",
+    message: text.completion,
     recordId: source.publicId,
     learnerName: source.learnerName,
     courseTitle: source.courseTitle,
@@ -146,7 +149,11 @@ export function toCompletionVerification(source: CompletionSource): PublicVerifi
   };
 }
 
-export function toAttemptStatusVerification(source: AttemptStatusSource): PublicVerification {
+export function toAttemptStatusVerification(
+  source: AttemptStatusSource,
+  locale: Locale = "en",
+): PublicVerification {
+  const text = verificationText(locale);
   const pending = source.state === "pending_review" || source.state === "submitted" || source.state === "returned";
   const status = source.state === "not_issued"
     ? "Not Verified / Not Issued"
@@ -155,11 +162,7 @@ export function toAttemptStatusVerification(source: AttemptStatusSource): Public
       : pending
         ? "Pending Review"
         : "In Progress";
-  const message = source.state === "not_issued"
-    ? "Not Verified / Not Issued. This assessment did not produce a proof 180 Certificate. It is not a verified credential."
-    : pending
-      ? "Pending Review. A proof 180 Certificate has not been issued. This ID is not evidence of competency."
-      : "This assessment is still in progress. No proof 180 Certificate has been issued.";
+  const message = source.state === "not_issued" ? text.notIssued : pending ? text.pending : text.inProgress;
 
   return {
     outcome: "assessment_status",

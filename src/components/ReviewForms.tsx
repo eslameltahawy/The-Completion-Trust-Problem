@@ -2,57 +2,59 @@
 
 import { useActionState } from "react";
 import { reviewAction, revokeAction } from "@/app/actions/review";
+import { useLocale } from "@/i18n/LocaleContext";
+import { copy } from "@/i18n/messages";
 import { SubmitButton } from "./SubmitButton";
 
 export function ReviewForm({ attemptId, allowReturn }: { attemptId: string; allowReturn: boolean }) {
+  const t = copy(useLocale());
   const [state, action] = useActionState(reviewAction, { error: "" });
   return (
     <form action={action} className="grid gap-3">
       <input type="hidden" name="attemptId" value={attemptId} />
       <fieldset className="grid gap-2">
-        <legend className="font-semibold">Decision</legend>
+        <legend className="font-semibold">{t.decision}</legend>
         <label className="flex gap-2">
           <input type="radio" name="decision" value="approve" required />
-          Approve and issue a proof 180 Certificate
+          {t.approve}
         </label>
         <label className="flex gap-2">
           <input type="radio" name="decision" value="reject" />
-          Reject — Not Verified / Not Issued
+          {t.reject}
         </label>
         {allowReturn ? (
           <label className="flex gap-2">
             <input type="radio" name="decision" value="return" />
-            Return for further review
+            {t.returnReview}
           </label>
         ) : null}
       </fieldset>
       <label className="field">
-        <span>Reason</span>
+        <span>{t.reason}</span>
         <textarea name="reason" required minLength={12} rows={4} />
       </label>
-      <p className="text-sm text-muted">
-        A reason is required for every decision. Changing the proposed result is recorded as a material change.
-      </p>
+      <p className="text-sm text-muted">{t.reasonHelp}</p>
       {state.error ? (
         <p role="alert" className="text-red">
           {state.error}
         </p>
       ) : null}
-      <SubmitButton tone="teal" pendingLabel="Saving...">
-        Save decision
+      <SubmitButton tone="teal" pendingLabel={t.savingDecision}>
+        {t.saveDecision}
       </SubmitButton>
     </form>
   );
 }
 
 export function RevokeForm({ attemptId, publicId }: { attemptId: string; publicId: string }) {
+  const t = copy(useLocale());
   const [state, action] = useActionState(revokeAction, { error: "" });
   return (
     <form action={action} className="grid gap-3">
       <input type="hidden" name="attemptId" value={attemptId} />
       <input type="hidden" name="publicId" value={publicId} />
       <label className="field">
-        <span>Revocation reason</span>
+        <span>{t.revokeReason}</span>
         <textarea name="reason" required minLength={12} rows={4} />
       </label>
       {state.error ? (
@@ -60,8 +62,8 @@ export function RevokeForm({ attemptId, publicId }: { attemptId: string; publicI
           {state.error}
         </p>
       ) : null}
-      <SubmitButton tone="ghost" pendingLabel="Revoking...">
-        Revoke proof 180 Certificate
+      <SubmitButton tone="ghost" pendingLabel={t.revoking}>
+        {t.revoke}
       </SubmitButton>
     </form>
   );

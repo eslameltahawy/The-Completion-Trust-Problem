@@ -1,6 +1,6 @@
-export function formatDate(value: Date | string) {
+export function formatDate(value: Date | string, locale: "en" | "ar" = "en") {
   const date = typeof value === "string" ? new Date(value) : value;
-  return new Intl.DateTimeFormat("en-GB", {
+  return new Intl.DateTimeFormat(locale === "ar" ? "ar-EG-u-nu-latn" : "en-GB", {
     day: "numeric",
     month: "short",
     year: "numeric",
@@ -8,9 +8,9 @@ export function formatDate(value: Date | string) {
   }).format(date);
 }
 
-export function formatDateTime(value: Date | string) {
+export function formatDateTime(value: Date | string, locale: "en" | "ar" = "en") {
   const date = typeof value === "string" ? new Date(value) : value;
-  return new Intl.DateTimeFormat("en-GB", {
+  return new Intl.DateTimeFormat(locale === "ar" ? "ar-EG-u-nu-latn" : "en-GB", {
     day: "numeric",
     month: "short",
     year: "numeric",

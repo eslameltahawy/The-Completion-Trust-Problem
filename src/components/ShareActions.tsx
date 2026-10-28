@@ -1,8 +1,11 @@
 "use client";
 
+import { useLocale } from "@/i18n/LocaleContext";
+import { copy } from "@/i18n/messages";
 import { useState } from "react";
 
 export function CopyLinkButton({ value }: { value: string }) {
+  const t = copy(useLocale());
   const [copied, setCopied] = useState(false);
 
   return (
@@ -15,15 +18,16 @@ export function CopyLinkButton({ value }: { value: string }) {
         setCopied(true);
       }}
     >
-      {copied ? "Link copied" : "Copy verification link"}
+      {copied ? t.copied : t.copyLink}
     </button>
   );
 }
 
 export function PrintButton() {
+  const t = copy(useLocale());
   return (
     <button className="btn btn-ghost no-print" type="button" onClick={() => window.print()}>
-      Print or save PDF
+      {t.print}
     </button>
   );
 }

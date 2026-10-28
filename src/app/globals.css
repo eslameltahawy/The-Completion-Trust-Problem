@@ -22,13 +22,19 @@ body {
   font-family: var(--font-sans), "Segoe UI", sans-serif;
 }
 
+html[lang="ar"] body,
+html[lang="ar"] .serif {
+  font-family: var(--font-arabic), "Segoe UI", Tahoma, sans-serif;
+  line-height: 1.75;
+}
+
 .serif {
   font-family: var(--font-serif), Georgia, serif;
 }
 
 .skip {
   position: absolute;
-  left: 1rem;
+  inset-inline-start: 1rem;
   top: -4rem;
   background: var(--color-ink);
   color: white;

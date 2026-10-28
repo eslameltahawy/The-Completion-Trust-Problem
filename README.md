@@ -82,7 +82,7 @@ npm run build
 - Written answers are checked for explicit expected elements. That is a demo heuristic. Reviewers can override it with a reason.
 - Numeric pass marks are unvalidated hypotheses.
 - Refreshing a partner result records another verification event.
-- The hosted demo is https://the-completion-trust-problem.vercel.app. Sign-in is a signed cookie, so it works across server instances. Partner lookups of the seeded IDs work. New review decisions can still disappear when an instance is replaced, because SQLite is not shared. No demo recording yet.
+- The hosted demo is https://the-completion-trust-problem.vercel.app. Use **العربية** in the header to switch the interface to Arabic. The document names stay Course Completion record and proof 180 Certificate.
 
 ## Deliverables
 

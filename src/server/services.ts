@@ -477,7 +477,7 @@ export async function revokeCertificate(input: {
   });
 }
 
-export async function verifyCertificate(rawId: string) {
+export async function verifyCertificate(rawId: string, locale: "en" | "ar" = "en") {
   const queriedId = rawId.trim().toUpperCase();
   const certificate = await prisma.competencyCertificate.findUnique({
     where: { publicId: queriedId },
@@ -503,7 +503,7 @@ export async function verifyCertificate(rawId: string) {
       criteriaSummary: certificate.criteriaSummary,
       evidenceSummary: certificate.evidenceSummary,
     };
-    const result = toPublicVerification(source);
+    const result = toPublicVerification(source, locale);
     await prisma.certificateVerificationEvent.create({
       data: {
         id: newId("ver"),
@@ -536,7 +536,7 @@ export async function verifyCertificate(rawId: string) {
       legacyLabel: completion.legacyLabel,
       laterVersionLabels,
     };
-    const result = toCompletionVerification(source);
+    const result = toCompletionVerification(source, locale);
     await prisma.certificateVerificationEvent.create({
       data: { id: newId("ver"), queriedId, outcome: result.outcome, certificateId: null },
     });
@@ -567,14 +567,14 @@ export async function verifyCertificate(rawId: string) {
       state: attempt.state,
       activityDateIso: (attempt.submittedAt ?? attempt.startedAt).toISOString(),
     };
-    const result = toAttemptStatusVerification(source);
+    const result = toAttemptStatusVerification(source, locale);
     await prisma.certificateVerificationEvent.create({
       data: { id: newId("ver"), queriedId, outcome: result.outcome, certificateId: null },
     });
     return result;
   }
 
-  const result = toPublicVerification(null);
+  const result = toPublicVerification(null, locale);
   await prisma.certificateVerificationEvent.create({
     data: { id: newId("ver"), queriedId, outcome: result.outcome, certificateId: null },
   });

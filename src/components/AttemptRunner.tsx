@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { integrityAction, saveAnswerAction, submitAttemptAction } from "@/app/actions/assessment";
+import { useLocale } from "@/i18n/LocaleContext";
+import { phrase } from "@/i18n/glossary";
+import { copy } from "@/i18n/messages";
 import { SubmitButton } from "./SubmitButton";
 
 interface RunnerQuestion {
@@ -26,10 +29,12 @@ export function AttemptRunner({
   editable: boolean;
   questions: RunnerQuestion[];
 }) {
+  const locale = useLocale();
+  const t = copy(locale);
   const [values, setValues] = useState<Record<string, string>>(
     Object.fromEntries(questions.map((question) => [question.id, question.savedValue])),
   );
-  const [status, setStatus] = useState(editable ? "Answers save as you go." : "");
+  const [status, setStatus] = useState(editable ? t.answersSave : "");
   const [clock, setClock] = useState("");
   const saveTimers = useRef<Record<string, number>>({});
   const submitted = useRef(false);
@@ -73,9 +78,9 @@ export function AttemptRunner({
     setValues((current) => ({ ...current, [questionId]: value }));
     window.clearTimeout(saveTimers.current[questionId]);
     saveTimers.current[questionId] = window.setTimeout(async () => {
-      setStatus("Saving...");
+      setStatus(t.saving);
       const result = await saveAnswerAction({ attemptId, questionId, value });
-      setStatus(result.ok ? "Saved" : result.error);
+      setStatus(result.ok ? t.saved : result.error);
     }, 400);
   }
 
@@ -83,16 +88,16 @@ export function AttemptRunner({
     <div className="grid gap-5">
       {editable ? (
         <p className="card flex flex-wrap items-center justify-between gap-3 px-4 py-3" aria-live="polite">
-          <span>Time remaining {clock}</span>
+          <span>{t.timeRemaining} {clock}</span>
           <span>{status}</span>
         </p>
       ) : null}
       {questions.map((question, index) => (
         <fieldset key={question.id} className="card p-5">
           <legend className="font-semibold">
-            {index + 1}. {question.prompt}
+            {index + 1}. {phrase(locale, question.prompt)}
           </legend>
-          {question.context ? <p className="mt-3 whitespace-pre-wrap text-muted">{question.context}</p> : null}
+          {question.context ? <p className="mt-3 whitespace-pre-wrap text-muted">{phrase(locale, question.context)}</p> : null}
           {question.type === "multiple_choice" ? (
             <div className="mt-4 grid gap-2">
               {question.options.map((option) => (
@@ -107,14 +112,14 @@ export function AttemptRunner({
                   />
                   <span>
                     <span className="font-semibold">{option.key}. </span>
-                    {option.text}
+                    {phrase(locale, option.text)}
                   </span>
                 </label>
               ))}
             </div>
           ) : (
             <label className="field mt-4">
-              <span className="sr-only">Response</span>
+              <span className="sr-only">{t.response}</span>
               <textarea
                 rows={6}
                 value={values[question.id] ?? ""}
@@ -130,10 +135,10 @@ export function AttemptRunner({
           <input type="hidden" name="attemptId" value={attemptId} />
           <label className="flex gap-3">
             <input type="checkbox" name="confirm" value="yes" required />
-            <span>I have finished this attempt and want to submit it for review.</span>
+            <span>{t.confirmSubmit}</span>
           </label>
-          <SubmitButton tone="teal" pendingLabel="Submitting...">
-            Submit assessment
+          <SubmitButton tone="teal" pendingLabel={t.submitting}>
+            {t.submit}
           </SubmitButton>
         </form>
       ) : null}

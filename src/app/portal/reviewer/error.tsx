@@ -1,11 +1,16 @@
 "use client";
 
+import { useLocale } from "@/i18n/LocaleContext";
+import { copy } from "@/i18n/messages";
+
 export default function ReviewerError({ reset }: { error: Error; reset: () => void }) {
+  const t = copy(useLocale());
   return (
     <div className="card p-6" role="alert">
-      <h1 className="serif text-2xl">The reviewer queue could not be loaded</h1>
+      <h1 className="serif text-2xl">{t.reviewerError}</h1>
+      <p className="mt-2 text-muted">{t.errorHelp}</p>
       <button className="btn btn-primary mt-4" type="button" onClick={() => reset()}>
-        Try again
+        {t.tryAgain}
       </button>
     </div>
   );

@@ -2,12 +2,17 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { StatusPill } from "@/components/Chrome";
 import { CopyLinkButton, PrintButton } from "@/components/ShareActions";
+import { phrase } from "@/i18n/glossary";
+import { getLocale } from "@/i18n/get-locale";
+import { copy } from "@/i18n/messages";
 import { requireRole } from "@/server/auth";
 import { formatDate } from "@/server/format";
 import { prisma } from "@/server/db";
 
 export default async function CertificatePage({ params }: { params: Promise<{ publicId: string }> }) {
   const user = await requireRole("learner");
+  const locale = await getLocale();
+  const t = copy(locale);
   const { publicId } = await params;
   const certificate = await prisma.competencyCertificate.findFirst({
     where: { publicId, learnerId: user.id },
@@ -26,21 +31,17 @@ export default async function CertificatePage({ params }: { params: Promise<{ pu
     <article className={verified ? "sheet sheet-competency" : "sheet"}>
       <div className="no-print mb-6 flex flex-wrap gap-2">
         <Link className="btn btn-ghost" href="/portal/student">
-          Back to dashboard
+          {locale === "ar" ? "العودة إلى اللوحة" : "Back to dashboard"}
         </Link>
         <PrintButton />
         {verified ? <CopyLinkButton value={sharePath} /> : null}
       </div>
       <p className="text-xs font-semibold tracking-wide text-teal">proof 180 Certificate</p>
-      <h1 className="serif mt-2 text-4xl">{certificate.competency.name}</h1>
+      <h1 className="serif mt-2 text-4xl">{phrase(locale, certificate.competency.name)}</h1>
       <div className="mt-3">
-        <StatusPill tone={verified ? "good" : "bad"}>{verified ? "Verified" : "Revoked"}</StatusPill>
+        <StatusPill tone={verified ? "good" : "bad"}>{phrase(locale, verified ? "Verified" : "Revoked")}</StatusPill>
       </div>
-      <p className="mt-4 max-w-2xl">
-        {verified
-          ? "This certificate records a reviewed competency assessment. It does not guarantee employment or future job performance."
-          : "This certificate was revoked and is not valid evidence of competency."}
-      </p>
+      <p className="mt-4 max-w-2xl">{verified ? t.employment : t.revokedBody}</p>
       <dl className="mt-6 grid gap-4 sm:grid-cols-2">
         <div>
           <dt className="text-sm text-muted">Certificate ID</dt>

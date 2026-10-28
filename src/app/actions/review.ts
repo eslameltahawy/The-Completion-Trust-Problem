@@ -1,7 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { isDomainError } from "@/domain/errors";
+import { publicError } from "@/i18n/errors";
+import { getLocale } from "@/i18n/get-locale";
 import type { ReviewDecision } from "@/domain/states";
 import { requireRole } from "@/server/auth";
 import { rethrowIfRedirect } from "@/server/http";
@@ -19,7 +20,8 @@ export async function reviewAction(_prev: { error: string }, formData: FormData)
     });
   } catch (error) {
     rethrowIfRedirect(error);
-    return { error: isDomainError(error) ? error.message : "The decision was not saved." };
+    const locale = await getLocale();
+    return { error: publicError(locale, error, "The decision was not saved.") };
   }
   redirect(`/portal/reviewer/attempts/${attemptId}?notice=saved`);
 }
@@ -35,7 +37,8 @@ export async function revokeAction(_prev: { error: string }, formData: FormData)
     });
   } catch (error) {
     rethrowIfRedirect(error);
-    return { error: isDomainError(error) ? error.message : "The certificate was not revoked." };
+    const locale = await getLocale();
+    return { error: publicError(locale, error, "The certificate was not revoked.") };
   }
   redirect(`/portal/reviewer/attempts/${attemptId}?notice=revoked`);
 }

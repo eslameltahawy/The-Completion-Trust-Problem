@@ -2,6 +2,8 @@
 
 import { redirect } from "next/navigation";
 import { isDomainError } from "@/domain/errors";
+import { publicError } from "@/i18n/errors";
+import { getLocale } from "@/i18n/get-locale";
 import { login, logout } from "@/server/auth";
 import { rethrowIfRedirect } from "@/server/http";
 
@@ -11,7 +13,8 @@ export async function loginAction(_prev: { error: string }, formData: FormData) 
     redirect(user.role === "reviewer" ? "/portal/reviewer" : "/portal/student");
   } catch (error) {
     rethrowIfRedirect(error);
-    return { error: isDomainError(error) ? error.message : "Sign-in failed." };
+    const locale = await getLocale();
+    return { error: publicError(locale, error, "Sign-in failed.") };
   }
 }
 

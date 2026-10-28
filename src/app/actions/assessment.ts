@@ -1,7 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { isDomainError } from "@/domain/errors";
+import { publicError } from "@/i18n/errors";
+import { getLocale } from "@/i18n/get-locale";
 import { requireRole } from "@/server/auth";
 import { rethrowIfRedirect } from "@/server/http";
 import { recordIntegritySignal, saveAnswer, startAssessment, submitAttempt } from "@/server/services";
@@ -19,7 +20,8 @@ export async function startAssessmentAction(formData: FormData) {
     redirect(`/portal/student/attempts/${result.attemptId}`);
   } catch (error) {
     rethrowIfRedirect(error);
-    const message = isDomainError(error) ? error.message : "The assessment could not be started.";
+    const locale = await getLocale();
+    const message = publicError(locale, error, "The assessment could not be started.");
     redirect(`/portal/student/courses/${completionId}/assessment?error=${encodeURIComponent(message)}`);
   }
 }
@@ -30,7 +32,8 @@ export async function saveAnswerAction(input: { attemptId: string; questionId: s
     await saveAnswer({ actorId: user.id, ...input });
     return { ok: true as const };
   } catch (error) {
-    return { ok: false as const, error: isDomainError(error) ? error.message : "The answer was not saved." };
+    const locale = await getLocale();
+    return { ok: false as const, error: publicError(locale, error, "The answer was not saved.") };
   }
 }
 
@@ -46,7 +49,8 @@ export async function submitAttemptAction(formData: FormData) {
     await submitAttempt({ actorId: user.id, attemptId });
   } catch (error) {
     rethrowIfRedirect(error);
-    const message = isDomainError(error) ? error.message : "The assessment could not be submitted.";
+    const locale = await getLocale();
+    const message = publicError(locale, error, "The assessment could not be submitted.");
     redirect(`/portal/student/attempts/${attemptId}?error=${encodeURIComponent(message)}`);
   }
   redirect(`/portal/student/attempts/${attemptId}?notice=submitted`);
