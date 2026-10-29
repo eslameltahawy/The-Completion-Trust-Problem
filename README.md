@@ -90,6 +90,7 @@ npm run build
 - [D2 MVP PRD](docs/D2-mvp-prd.md)
 - [D3 Discovery plan](docs/D3-discovery-validation-plan.md)
 - [D4 Prototype and sample data](docs/D4-prototype-and-sample-data.md)
+- [D5 Learner certificate flow](docs/D5-learner-certificate-flow.mmd)
 - [D5 Trust model](docs/D5-trust-model.mmd)
 - [D5 Certificate lifecycle](docs/D5-certificate-lifecycle.mmd)
 - [D5 Partner verification](docs/D5-partner-verification-flow.mmd)

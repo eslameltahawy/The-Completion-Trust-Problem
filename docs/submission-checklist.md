@@ -29,7 +29,7 @@ Status was checked against the code and the test run in this session. "Verified"
 | D2 MVP PRD | `docs/D2-mvp-prd.md` | Written |
 | D3 discovery plan | `docs/D3-discovery-validation-plan.md` | Written |
 | D4 prototype guide | `docs/D4-prototype-and-sample-data.md` | Written. Hosted at https://the-completion-trust-problem.vercel.app. No recording |
-| D5 three diagrams | `docs/D5-*.mmd` | Written |
+| D5 diagrams | `docs/D5-*.mmd` | Trust model, certificate lifecycle, partner verification, and the learner certificate flow |
 | D6 metrics | `docs/D6-metrics-table.md` | Written |
 | D7 policy register | `docs/D7-edge-case-policy-register.md` | Written |
 | D8 AI note | `docs/D8-ai-usage-note.md` | Written |

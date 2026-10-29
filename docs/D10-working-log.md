@@ -16,7 +16,7 @@ The day was product work: the trust problem, the options, and the rules that had
 
 Also held out of the prototype: a course player, the camera, a video recording, a live model, and certificate expiry. Review capacity is the cost of keeping “Verified” meaningful.
 
-On 29 October the assessment rule was tightened. A proof 180 Certificate attempt requires Google Chrome and a share of the whole screen. The reviewer sees one still every five minutes, not a video. The hosted demo does not capture those stills yet.
+On 29 October the assessment rule was tightened. A proof 180 Certificate attempt requires Google Chrome and a share of the whole screen. The reviewer sees one still every five minutes, not a video. That learner path is `docs/D5-learner-certificate-flow.mmd`. The hosted demo does not capture those stills yet.
 
 ## 28 October — Prototype
 

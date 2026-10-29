@@ -28,7 +28,7 @@ Excluded: course player, production single sign-on, real model calls, the camera
 
 ## Screen sharing
 
-The assessment stays unstarted until the learner is in Google Chrome and has shared the whole screen. This is the same idea as Hubstaff: the reviewer looks at occasional screenshots, not a long video of the session.
+The assessment stays unstarted until the learner is in Google Chrome and has shared the whole screen. The story of that path is [D4](D4-prototype-and-sample-data.md) and [D5-learner-certificate-flow.mmd](D5-learner-certificate-flow.mmd). This is the same idea as Hubstaff: the reviewer looks at occasional screenshots, not a long video of the session.
 
 **Browser.** Accept the session only when `navigator.userAgentData.brands` includes the brand `Google Chrome`. Do not treat “has `getDisplayMedia`” as enough. Microsoft Edge and Firefox have that method too. If `userAgentData` is missing, stop and tell the learner to open Google Chrome. A browser that pretends to be Chrome can pass this check.
 

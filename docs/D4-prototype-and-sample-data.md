@@ -44,7 +44,21 @@ No account. On `/portal/partner`:
 - `CTC-77B3E2D1C8` — Revoked, Noor Fahmy
 - `CTC-DOES-NOT-EXIST` — unknown ID, no personal information
 
-## Learner path
+## Learner story
+
+The flow is [D5-learner-certificate-flow.mmd](D5-learner-certificate-flow.mmd). Hana is the sample for the happy path. She already has a Course Completion record for Data Literacy. That record is not a proof 180 Certificate.
+
+She signs in and chooses **Get proof 180 Certificate**. If the course has no assessment, the state stays Assessment Design Required and nothing starts. If her completion is an older version, the state stays Not Yet Eligible and the old record is unchanged. If she has used both attempts, she can only view the earlier result.
+
+On an eligible course she reads the rules. The attempt stays closed until two checks pass. The browser must be Google Chrome. She must share the entire screen through Chrome’s picker, `getDisplayMedia()`. A window, a tab, or a dismissed picker does not start the attempt. The camera stays off.
+
+Once the monitor is shared, the attempt is In Progress. One still image is stored at the start, then one every five minutes. There is no video. If she stops the share from Chrome’s bar, the attempt pauses until she shares the monitor again. She answers and submits. The state becomes Pending Review. The demo score may propose pass or fail. It does not create a certificate.
+
+Nadia opens the attempt. She sees the answers, the rubric, the proposal, and the stills in time order. She does not watch a recording. Approval with a written reason issues one proof 180 Certificate. Rejection leaves Not Verified / Not Issued. Return keeps the attempt with the reviewer. Hana can then open the certificate, and a partner can verify its public ID. The partner never sees the answers or the stills.
+
+The hosted demo does not open Chrome’s share dialog yet. The click-through below still starts the quiz without that gate.
+
+## Learner path in the demo
 
 Sign in as Hana. Data Literacy shows Assessment Not Started. Open **Get proof 180 Certificate**, acknowledge the rules, and start. Correct sample key, for the demo only: B, B, B, A. Submit. The state becomes Pending Review and no certificate appears. Communication stays Assessment Design Required.
 

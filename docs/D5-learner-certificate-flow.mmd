@@ -1,0 +1,38 @@
+flowchart TD
+  learner[Learner has finished the course]
+  record["Course Completion record"]
+  gate{Eligible for this version}
+  designRequired[Assessment Design Required]
+  notEligible[Not Yet Eligible]
+  exhausted[Attempts exhausted]
+  intro[Opens Get proof 180 Certificate and reads the rules]
+  chrome{Google Chrome}
+  share{Shares the entire monitor}
+  blocked[Attempt does not start]
+  inProgress[In Progress]
+  stills[JPEG at start then every 5 minutes]
+  paused[Share stopped so the attempt pauses]
+  submit[Learner submits]
+  pending[Pending Review]
+  proposal[Demo proposal never issues the certificate]
+  reviewer[Reviewer sees answers rubric proposal and stills]
+  decision{Written decision}
+  issued["Verified proof 180 Certificate"]
+  denied["Not Verified / Not Issued"]
+  returned[Returned for further review]
+  partner[Partner verifies the public ID]
+
+  learner --> record --> gate
+  gate -->|no assessment| designRequired
+  gate -->|older course version| notEligible
+  gate -->|no attempts left| exhausted
+  gate -->|owns the matching completion| intro --> chrome
+  chrome -->|another browser| blocked
+  chrome -->|yes| share
+  share -->|dismissed window or tab| blocked
+  share -->|entire screen| inProgress --> stills
+  inProgress -->|learner stops sharing| paused --> share
+  inProgress --> submit --> pending --> proposal --> reviewer --> decision
+  decision -->|approve| issued --> partner
+  decision -->|reject| denied
+  decision -->|return| returned --> reviewer
