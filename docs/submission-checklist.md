@@ -34,7 +34,7 @@ Status was checked against the code and the test run in this session. "Verified"
 | D7 policy register | `docs/D7-edge-case-policy-register.md` | Written |
 | D8 AI note | `docs/D8-ai-usage-note.md` | Written |
 | D9 unasked question | `docs/D9-unasked-question.md` | Written |
-| D10 working log | `docs/D10-working-log.md` | Written for this session only |
+| D10 working log | `docs/D10-working-log.md` | Framing on 27 Oct; build and release on 28 Oct |
 | Lint, tests, production build | package scripts | 28 Oct 2026 session: `npm test` 25 passed; `npm run lint` clean; `npm run build` succeeded |
 | Demo recording under three minutes | D4 plan | Not done. External |
 | Push or deploy | `main` on GitHub and Vercel production | Pushed and deployed on 28 Oct 2026. Live partner checks passed for a verified ID, a completion record, and an unknown ID |
