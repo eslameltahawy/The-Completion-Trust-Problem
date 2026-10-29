@@ -14,7 +14,9 @@ The day was product work: the trust problem, the options, and the rules that had
 | What is still a hypothesis? | Two attempts, a 75% quiz line, partner comprehension, reviewer agreement, and the pilot cost in D1. |
 | What would test those hypotheses? | The three studies in D3. They are specified, not done. |
 
-Also held out of the prototype: a course player, camera or screen capture, a live model, and certificate expiry. Review capacity is the cost of keeping “Verified” meaningful.
+Also held out of the prototype: a course player, the camera, a video recording, a live model, and certificate expiry. Review capacity is the cost of keeping “Verified” meaningful.
+
+On 29 October the assessment rule was tightened. A proof 180 Certificate attempt requires Google Chrome and a share of the whole screen. The reviewer sees one still every five minutes, not a video. The hosted demo does not capture those stills yet.
 
 ## 28 October — Prototype
 

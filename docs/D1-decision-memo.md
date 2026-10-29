@@ -50,7 +50,7 @@ The cost of this choice is review capacity. The benefit is that "Verified" means
 
 ## MVP scope for one quarter
 
-A small team can ship the critical path: completion records, configurable assessments, saved attempts, demo evaluation, a review queue, issuance rules, historical import of sample records, and public verification. Real AI grading, camera or screen capture, production identity, and hiring-outcome claims are out of scope. Courses still finish in the existing learning system. This prototype does not include a course player.
+A small team can ship the critical path: completion records, configurable assessments, saved attempts, demo evaluation, a review queue, issuance rules, historical import of sample records, and public verification. Real AI grading, the camera, a video recording of the screen, production identity, and hiring-outcome claims are out of scope. The assessment does require Google Chrome and a still image of the shared screen every five minutes, as specified in D2. The hosted demo does not capture those stills yet. Courses still finish in the existing learning system. This prototype does not include a course player.
 
 ## Assumptions and evidence
 

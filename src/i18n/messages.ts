@@ -95,9 +95,9 @@ const en = {
   humanReview:
     "Human review is required. Submission moves the attempt to Pending Review. A proof 180 Certificate is issued only after a reviewer approves it.",
   noCamera:
-    "The prototype does not use your camera and does not capture your screen. If you consent, the browser can record when this tab is hidden. Those signals are review indicators, not proof of cheating, and employer partners never see them.",
+    "Before the assessment starts, open Google Chrome and share the entire screen. The reviewer sees one still image every five minutes, as Hubstaff does, not a video. The camera stays off. Employer partners never see the images. This hosted demo explains the rule and does not yet open Chrome’s share dialog.",
   criteriaHeading: "Criteria",
-  consent: "I consent to tab-visibility signals for this attempt. The camera and screen stay off.",
+  consent: "I understand that starting requires Google Chrome and a share of the entire screen, and that the reviewer sees stills every five minutes rather than a video.",
   acknowledge:
     "I have read the rules and understand that a Course Completion record alone will not issue a proof 180 Certificate.",
   starting: "Starting...",
@@ -169,7 +169,8 @@ const en = {
   proposedPass: "Proposed pass",
   proposedFail: "Proposed fail",
   reviewHeading: "Review",
-  learnerIntegrity: "These are review indicators, not proof of misconduct. The camera and screen were not captured.",
+  learnerIntegrity:
+    "The reviewer is meant to see still images about every five minutes during screen sharing, not a video. One image is not proof of misconduct. The camera stays off. This demo has not stored live screenshots.",
   assessmentEvidence: "Assessment evidence",
   attemptHistory: "Attempt history",
   startedLabel: "Started",
@@ -188,7 +189,7 @@ const en = {
   reviewDecision: "Review decision",
   proposedWord: "proposed",
   reviewerIntegrity:
-    "Signals are review indicators, not conclusive proof. Do not reject a learner for one signal alone. Nothing here came from a camera or a screen capture.",
+    "Review the still images in time order. There is no video to watch. One image is an indicator, not a reason to reject by itself. The camera is off. Partners never see these images. This demo has not stored live screenshots.",
   partnerShare:
     "Employer partners can verify this ID on the partner page. Answers and integrity signals are not included in that check.",
   revocationNote: "Revocation note",
@@ -287,9 +288,9 @@ const ar: typeof en = {
   humanReview:
     "المراجعة البشرية مطلوبة. الإرسال ينقل المحاولة إلى قيد المراجعة. لا تُصدر proof 180 Certificate إلا بعد موافقة المراجع.",
   noCamera:
-    "لا يستخدم هذا النموذج الكاميرا ولا يلتقط الشاشة. إذا وافقت، يمكن للمتصفح أن يسجّل متى تُخفى هذه الصفحة. هذه الإشارات للمراجع فقط، وليست دليل غش، ولا يراها شريك التوظيف.",
+    "قبل بدء التقييم افتح Google Chrome وشارك الشاشة كاملة. يرى المراجع صورة ثابتة كل خمس دقائق، كما في Hubstaff، لا فيديو. الكاميرا تبقى مغلقة. شريك التوظيف لا يرى هذه الصور. هذا العرض المستضاف يشرح القاعدة ولا يفتح بعد نافذة المشاركة في كروم.",
   criteriaHeading: "المعايير",
-  consent: "أوافق على تسجيل إشارات إخفاء هذه الصفحة في هذه المحاولة. الكاميرا والشاشة تبقيان متوقفتين.",
+  consent: "أفهم أن البدء يتطلب Google Chrome ومشاركة الشاشة كاملة، وأن المراجع يرى صورًا كل خمس دقائق وليس تسجيل فيديو.",
   acknowledge:
     "قرأت القواعد، وأفهم أن Course Completion record وحده لا يُصدر proof 180 Certificate.",
   starting: "جارٍ البدء...",
@@ -361,7 +362,8 @@ const ar: typeof en = {
   proposedPass: "اقتراح بالنجاح",
   proposedFail: "اقتراح بعدم النجاح",
   reviewHeading: "المراجعة",
-  learnerIntegrity: "هذه مؤشرات للمراجعة، وليست دليلًا على مخالفة. لم تُستخدم الكاميرا ولم تُلتقط الشاشة.",
+  learnerIntegrity:
+    "المفترض أن يرى المراجع صورًا ثابتة كل خمس دقائق تقريبًا أثناء مشاركة الشاشة، لا فيديو. الصورة الواحدة ليست دليلًا على مخالفة. الكاميرا تبقى مغلقة. هذا العرض لم يخزّن لقطات حية.",
   assessmentEvidence: "أدلة التقييم",
   attemptHistory: "سجل المحاولات",
   startedLabel: "بدأت",
@@ -380,7 +382,7 @@ const ar: typeof en = {
   reviewDecision: "قرار المراجعة",
   proposedWord: "مقترح",
   reviewerIntegrity:
-    "الإشارات مؤشرات للمراجعة وليست دليلًا قاطعًا. لا ترفض المتعلّم بسبب إشارة واحدة. لم يأتِ شيء هنا من كاميرا أو التقاط شاشة.",
+    "راجع الصور الثابتة بترتيب وقتها. لا يوجد فيديو لمشاهدته. الصورة الواحدة مؤشر، وليست سببًا كافيًا للرفض وحدها. الكاميرا مغلقة. شريك التوظيف لا يرى هذه الصور. هذا العرض لم يخزّن لقطات حية.",
   partnerShare: "يستطيع شريك التوظيف التحقق من هذا المعرّف في بوابة الشريك. الإجابات وإشارات النزاهة غير مشمولة في هذا التحقق.",
   revocationNote: "ملاحظة الإلغاء",
 };

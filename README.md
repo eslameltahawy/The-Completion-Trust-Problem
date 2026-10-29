@@ -78,7 +78,7 @@ npm run build
 
 ## Limits
 
-- No production login, course player, camera, screen capture, or live AI grader.
+- No production login, course player, camera, video recording of the screen, or live AI grader. A proof 180 Certificate attempt requires Google Chrome and one still of the shared screen every five minutes. The hosted demo does not capture those stills yet. See D2.
 - Written answers are checked for explicit expected elements. That is a demo heuristic. Reviewers can override it with a reason.
 - Numeric pass marks are unvalidated hypotheses.
 - Refreshing a partner result records another verification event.

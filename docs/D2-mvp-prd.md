@@ -10,7 +10,7 @@ Demo authentication is local and labeled. It is not Career 180 production identi
 
 The MVP must show the full critical journey: completion record, assessment, pending review, reviewer decision, certificate, and partner verification. It must block illegal transitions and a second certificate for the same attempt.
 
-Excluded: course player, production single sign-on, real model calls, camera or screen capture, certificate expiry, payment, and any claim about hiring outcomes.
+Excluded: course player, production single sign-on, real model calls, the camera, a video recording of the screen, certificate expiry, payment, and any claim about hiring outcomes.
 
 ## Functional requirements
 
@@ -18,13 +18,45 @@ Excluded: course player, production single sign-on, real model calls, camera or 
 - Open and print a Course Completion record that says it is not a proof 180 Certificate.
 - Start an assessment only when the learner owns the completion and the assessment targets that course version.
 - Require an acknowledgement of rules, attempt limit, time limit, privacy, and review.
-- Offer optional tab-visibility signals. Never use the camera or capture the screen.
+- Before the assessment starts, require Google Chrome and a share of the entire screen. Store one still image every five minutes for the reviewer. Do not record video. Leave the camera off.
 - Save answers, submit once, and move the attempt to Pending Review.
 - Let a reviewer approve, reject, or return, with a reason of at least 12 characters.
 - Issue a certificate only on approval. Reject leaves Not Verified / Not Issued.
 - Let a partner submit an ID and see Verified, Revoked, a Course Completion record, Pending Review, Not Verified / Not Issued, or an unknown ID.
 - Keep answers, integrity events, and reviewer notes out of the partner view.
 - Import a legacy completion without creating a proof 180 Certificate.
+
+## Screen sharing
+
+The assessment stays unstarted until the learner is in Google Chrome and has shared the whole screen. This is the same idea as Hubstaff: the reviewer looks at occasional screenshots, not a long video of the session.
+
+**Browser.** Accept the session only when `navigator.userAgentData.brands` includes the brand `Google Chrome`. Do not treat “has `getDisplayMedia`” as enough. Microsoft Edge and Firefox have that method too. If `userAgentData` is missing, stop and tell the learner to open Google Chrome. A browser that pretends to be Chrome can pass this check.
+
+**Permission.** Call the Screen Capture API from a button click, on HTTPS:
+
+`navigator.mediaDevices.getDisplayMedia()`
+
+Chrome always shows its own picker. The page cannot turn sharing on by itself. Ask for the monitor and refuse audio:
+
+```js
+await navigator.mediaDevices.getDisplayMedia({
+  video: { displaySurface: "monitor" },
+  audio: false,
+  monitorTypeSurfaces: "include",
+  selfBrowserSurface: "exclude",
+  systemAudio: "exclude",
+});
+```
+
+Then read `videoTrack.getSettings().displaySurface`. Continue only when it is `"monitor"`. A window or a tab is not enough: stop that track and ask again. If the learner dismisses the picker, the attempt does not start.
+
+**Stills, not video.** Do not use `MediaRecorder`. Do not call `getUserMedia`. The camera stays off. There is no video file.
+
+When sharing starts, grab one JPEG. Grab another every five minutes until the learner submits or the share ends. Play the stream in a hidden `<video>`, draw the frame with `canvas.getContext("2d").drawImage(...)`, and store `canvas.toBlob(..., "image/jpeg")`. In Chrome, `new ImageCapture(videoTrack).grabFrame()` grabs the same kind of frame. Terms to look up: Screen Capture API, `MediaDevices.getDisplayMedia`, `displaySurface`, `HTMLCanvasElement.toBlob`.
+
+The reviewer sees those images in time order, each with its timestamp. There is no video player. One image is a review indicator, not a reason to reject by itself. If the learner stops the share from Chrome’s bar, pause the attempt until the monitor is shared again. Employer partners never receive the images.
+
+The hosted demo does not call `getDisplayMedia` yet. It can still record that the assessment tab was hidden. That event is not a screenshot.
 
 ## States
 

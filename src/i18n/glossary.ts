@@ -197,8 +197,8 @@ const ar: Record<string, string> = {
     "إجابة عملية على طلب تصدير PDF في لوحة المتعلّم.",
   "Two questions on version 2 objectives. Version 1 completions are not eligible.":
     "سؤالان عن أهداف النسخة الثانية. إتمام النسخة الأولى غير مؤهل.",
-  "A quiz and two written answers. Optional tab-visibility signals may be recorded. This is not camera or screen monitoring.":
-    "اختبار وإجابتان مكتوبتان. قد تُسجَّل إشارات إخفاء الصفحة اختياريًا. هذا ليس مراقبة بالكاميرا أو للشاشة.",
+  "A quiz and two written answers. The required check is Google Chrome sharing the entire screen, with one still every five minutes. The camera stays off. There is no video.":
+    "اختبار وإجابتان مكتوبتان. الشرط المطلوب هو مشاركة الشاشة كاملة من Google Chrome، مع صورة ثابتة كل خمس دقائق. الكاميرا تبقى مغلقة. لا يوجد فيديو.",
   demonstrated: "أُثبتت",
   "not demonstrated": "لم تُثبت",
   partial: "جزئي",

@@ -20,7 +20,7 @@ Status was checked against the code and the test run in this session. "Verified"
 | Historical import is not an upgrade and is idempotent | `migrateHistoricalCompletions` | Verified |
 | Course revision keeps version 1 | Excel v1 / v2, eligibility | Verified |
 | Revoked certificate hides the internal reason | Partner result | Verified |
-| No camera, no screen capture, no fake AI call | Attempt consent copy, `demo_evaluator_v1` | Implemented |
+| Chrome screen share, one still every five minutes, no camera and no video | D2 screen-sharing section | Specified. The hosted demo does not call `getDisplayMedia` yet. No fake AI call |
 | Reviewer queue, filter, and reasoned decision | `/portal/reviewer` | Implemented |
 | Partner needs no account | `/portal/partner` | Implemented |
 | Printable completion and certificate | Print actions | Implemented |
