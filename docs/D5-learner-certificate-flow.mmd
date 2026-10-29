@@ -1,38 +1,77 @@
 flowchart TD
-  learner[Learner has finished the course]
-  record["Course Completion record"]
-  gate{Eligible for this version}
-  designRequired[Assessment Design Required]
-  notEligible[Not Yet Eligible]
-  exhausted[Attempts exhausted]
-  intro[Opens Get proof 180 Certificate and reads the rules]
-  chrome{Google Chrome}
-  share{Shares the entire monitor}
-  blocked[Attempt does not start]
-  inProgress[In Progress]
-  stills[JPEG at start then every 5 minutes]
-  paused[Share stopped so the attempt pauses]
-  submit[Learner submits]
-  pending[Pending Review]
-  proposal[Demo proposal never issues the certificate]
-  reviewer[Reviewer sees answers rubric proposal and stills]
-  decision{Written decision}
-  issued["Verified proof 180 Certificate"]
-  denied["Not Verified / Not Issued"]
-  returned[Returned for further review]
-  partner[Partner verifies the public ID]
+  note["Intended flow. Typed ID entry and AI generation are not in the prototype."]
 
-  learner --> record --> gate
-  gate -->|no assessment| designRequired
-  gate -->|older course version| notEligible
-  gate -->|no attempts left| exhausted
-  gate -->|owns the matching completion| intro --> chrome
-  chrome -->|another browser| blocked
-  chrome -->|yes| share
-  share -->|dismissed window or tab| blocked
-  share -->|entire screen| inProgress --> stills
-  inProgress -->|learner stops sharing| paused --> share
-  inProgress --> submit --> pending --> proposal --> reviewer --> decision
-  decision -->|approve| issued --> partner
-  decision -->|reject| denied
-  decision -->|return| returned --> reviewer
+  subgraph learnerBox [Learner]
+    done["Finishes the course"]
+    open["Opens the competency journey"]
+    enterId["Enters the Course Completion record ID"]
+    rulesPage["Reads instructions, time, attempts, and consent"]
+    answer["Answers and saves within the time limit"]
+    sees["Sees the status or the certificate"]
+  end
+
+  subgraph backendBox [Application]
+    ccr["Course Completion record"]
+    appVal{"ID valid, owned, and eligible?"}
+    load["Loads course, version, objectives, materials, specialization, and history"]
+    save["Saves the assessment version"]
+    start["Starts the attempt"]
+    submit["Records the submission"]
+    pending["Pending Review"]
+  end
+
+  subgraph aiBox [AI assessment service planned]
+    req["Builds a request from that course and its criteria"]
+    ai["Writes grounded questions. Not a live call."]
+    rules{"Questions pass the rules?"}
+    badGen["Stop. Do not substitute unrelated questions."]
+  end
+
+  subgraph evalBox [Evaluator]
+    proposal["demo_evaluator_v1 proposes a result. Not a credential."]
+  end
+
+  subgraph reviewBox [Reviewer]
+    read["Reads answers, rubric, evidence, and the proposal"]
+    decision{"Written decision"}
+    returned["Return for further review"]
+  end
+
+  subgraph partnerBox [Employer partner]
+    lookup["Enters the certificate ID. No answers or notes."]
+  end
+
+  badId["Invalid ID"]
+  notOwned["Not this learner"]
+  missing["Course data is insufficient"]
+  design["Assessment Design Required. No certificate."]
+  oldVer["Not Yet Eligible. Record stays a completion."]
+  spent["Attempts exhausted. No certificate."]
+  already["Pending, returned, or issued. Show that status."]
+  issued["One proof 180 Certificate and a public ID"]
+  denied["Not Verified / Not Issued"]
+  tab["Optional tab-hidden signal. Not proof of cheating."]
+  policy["Default 5 questions, up to 7. Assumption, not a finding."]
+
+  note -.-> enterId
+  done --> ccr --> open --> enterId --> appVal
+  ccr -.->|never becomes| issued
+
+  appVal -->|invalid| badId
+  appVal -->|not owned| notOwned
+  appVal -->|missing data| missing
+  appVal -->|no design| design
+  appVal -->|other version| oldVer
+  appVal -->|no attempts left| spent
+  appVal -->|already open or issued| already
+  appVal -->|eligible| load --> req --> ai --> rules
+  rules -->|no| badGen
+  rules -->|yes| policy --> save --> rulesPage --> start --> answer
+  start -.-> tab
+  answer --> submit --> proposal --> pending --> read --> decision
+  decision -->|approve| issued --> sees
+  decision -->|reject| denied --> sees
+  decision -->|return| returned --> read
+  issued --> lookup
+  already --> sees
+  spent --> sees

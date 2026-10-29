@@ -8,7 +8,7 @@ The repository started empty. This application was built for the Career 180 prod
 
 ## Journeys
 
-- Student, `/portal/student`: completions and certificates are separate. The learner can open a completion record, start an eligible assessment, and see review status.
+- Student, `/portal/student`: completions and certificates are separate. The prototype starts an eligible assessment from the owned course card. Typing a Course Completion record ID, then generating questions with a model, is the intended journey in D4 and D5. It is not built.
 - Reviewer, `/portal/reviewer`: queue, evidence, rubric, proposed result, and approve, reject, or return with a reason.
 - Employer partner, `/portal/partner`: enter an ID and see a proof 180 Certificate (Verified or Revoked), a Course Completion record, Pending Review, Not Verified / Not Issued, or an unknown ID with no personal information.
 
@@ -78,7 +78,7 @@ npm run build
 
 ## Limits
 
-- No production login, course player, camera, video recording of the screen, or live AI grader. A proof 180 Certificate attempt requires Google Chrome and one still of the shared screen every five minutes. The hosted demo does not capture those stills yet. See D2.
+- No production login, course player, camera, screen stills, video recording, or live model. `demo_evaluator_v1` only proposes a result. Question generation from course data, and starting by typing a Course Completion record ID, are specified in D4 and are not built. Chrome screen sharing remains a separate planned check in D2.
 - Written answers are checked for explicit expected elements. That is a demo heuristic. Reviewers can override it with a reason.
 - Numeric pass marks are unvalidated hypotheses.
 - Refreshing a partner result records another verification event.

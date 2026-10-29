@@ -16,9 +16,9 @@ Excluded: course player, production single sign-on, real model calls, the camera
 
 - Show completed courses and proof 180 Certificates as separate lists.
 - Open and print a Course Completion record that says it is not a proof 180 Certificate.
-- Start an assessment only when the learner owns the completion and the assessment targets that course version.
+- Start an assessment only when the learner owns the completion and the assessment targets that course version. In the intended journey the learner enters the Course Completion record ID first, and course data is loaded before any questions are created. The prototype starts from the owned card on the dashboard and uses a seeded assessment.
 - Require an acknowledgement of rules, attempt limit, time limit, privacy, and review.
-- Before the assessment starts, require Google Chrome and a share of the entire screen. Store one still image every five minutes for the reviewer. Do not record video. Leave the camera off.
+- Planned, not in the prototype: before the assessment starts, require Google Chrome and a share of the entire screen, and store one still every five minutes. Do not record video. Leave the camera off. The prototype can record that the tab was hidden. That signal is not a screenshot.
 - Save answers, submit once, and move the attempt to Pending Review.
 - Let a reviewer approve, reject, or return, with a reason of at least 12 characters.
 - Issue a certificate only on approval. Reject leaves Not Verified / Not Issued.
@@ -28,7 +28,7 @@ Excluded: course player, production single sign-on, real model calls, the camera
 
 ## Screen sharing
 
-The assessment stays unstarted until the learner is in Google Chrome and has shared the whole screen. The story of that path is [D4](D4-prototype-and-sample-data.md) and [D5-learner-certificate-flow.mmd](D5-learner-certificate-flow.mmd). This is the same idea as Hubstaff: the reviewer looks at occasional screenshots, not a long video of the session.
+Screen sharing is a separate planned check. It is not implemented. The learner journey, including typed completion-ID entry and grounded AI question generation, is specified in [D4](D4-prototype-and-sample-data.md) and [D5-learner-certificate-flow.mmd](D5-learner-certificate-flow.mmd). The hosted demo does not call `getDisplayMedia` and does not call a model to write questions. This check, if built, would follow the Hubstaff idea: occasional screenshots, not a long video.
 
 **Browser.** Accept the session only when `navigator.userAgentData.brands` includes the brand `Google Chrome`. Do not treat “has `getDisplayMedia`” as enough. Microsoft Edge and Firefox have that method too. If `userAgentData` is missing, stop and tell the learner to open Google Chrome. A browser that pretends to be Chrome can pass this check.
 
