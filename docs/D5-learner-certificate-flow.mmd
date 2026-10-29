@@ -1,77 +1,41 @@
 flowchart TD
-  note["Intended flow. Typed ID entry and AI generation are not in the prototype."]
+  title["Intended journey. The prototype does not ask for this ID and does not call AI."]
 
-  subgraph learnerBox [Learner]
-    done["Finishes the course"]
-    open["Opens the competency journey"]
-    enterId["Enters the Course Completion record ID"]
-    rulesPage["Reads instructions, time, attempts, and consent"]
-    answer["Answers and saves within the time limit"]
-    sees["Sees the status or the certificate"]
-  end
+  s1["1. The learner finishes the course"]
+  s2["2. A Course Completion record is created. This is not a proof 180 Certificate."]
+  s3["3. The learner enters that record's ID"]
+  gate{"4. Can this record be assessed?"}
 
-  subgraph backendBox [Application]
-    ccr["Course Completion record"]
-    appVal{"ID valid, owned, and eligible?"}
-    load["Loads course, version, objectives, materials, specialization, and history"]
-    save["Saves the assessment version"]
-    start["Starts the attempt"]
-    submit["Records the submission"]
-    pending["Pending Review"]
-  end
+  stop["Stop. No proof 180 Certificate."]
+  why["The ID is invalid, it belongs to someone else, the course data is missing, there is no assessment design, the version is too old, or no attempts remain."]
+  already["Already pending, returned, or issued. Show that status. Do not start another assessment."]
 
-  subgraph aiBox [AI assessment service planned]
-    req["Builds a request from that course and its criteria"]
-    ai["Writes grounded questions. Not a live call."]
-    rules{"Questions pass the rules?"}
-    badGen["Stop. Do not substitute unrelated questions."]
-  end
+  s5["5. Load the course, version, objectives, materials, specialization, and history"]
+  s6["6. Planned: AI writes questions from this course and its criteria only"]
+  gen{"7. Did question generation succeed?"}
+  badGen["Stop. Do not replace the course with unrelated questions."]
+  s8["8. Save the assessment. Default 5 questions, up to 7. That count is an assumption, not a tested rule."]
 
-  subgraph evalBox [Evaluator]
-    proposal["demo_evaluator_v1 proposes a result. Not a credential."]
-  end
+  s9["9. The learner reads the rules, the time limit, the attempt limit, and consents"]
+  s10["10. The learner answers and submits. Policy assumption: one first attempt and one retry. A hidden tab may be noted. It does not prove cheating."]
+  s11["11. demo_evaluator_v1 proposes a result. A score is not a certificate."]
+  s12["12. The attempt waits in Pending Review"]
 
-  subgraph reviewBox [Reviewer]
-    read["Reads answers, rubric, evidence, and the proposal"]
-    decision{"Written decision"}
-    returned["Return for further review"]
-  end
+  s13["13. The reviewer reads the answers, the rubric, the evidence, and the proposal"]
+  decide{"14. The reviewer records a written decision"}
+  issued["15. Approve. Issue one proof 180 Certificate with its own public ID."]
+  denied["Reject. Not Verified / Not Issued. The completion record is unchanged."]
+  returned["Return for further review"]
 
-  subgraph partnerBox [Employer partner]
-    lookup["Enters the certificate ID. No answers or notes."]
-  end
+  s16["16. The learner sees the status, and opens the certificate only if it was issued"]
+  s17["17. An employer partner checks the certificate ID. Answers and reviewer notes stay hidden."]
 
-  badId["Invalid ID"]
-  notOwned["Not this learner"]
-  missing["Course data is insufficient"]
-  design["Assessment Design Required. No certificate."]
-  oldVer["Not Yet Eligible. Record stays a completion."]
-  spent["Attempts exhausted. No certificate."]
-  already["Pending, returned, or issued. Show that status."]
-  issued["One proof 180 Certificate and a public ID"]
-  denied["Not Verified / Not Issued"]
-  tab["Optional tab-hidden signal. Not proof of cheating."]
-  policy["Default 5 questions, up to 7. Assumption, not a finding."]
-
-  note -.-> enterId
-  done --> ccr --> open --> enterId --> appVal
-  ccr -.->|never becomes| issued
-
-  appVal -->|invalid| badId
-  appVal -->|not owned| notOwned
-  appVal -->|missing data| missing
-  appVal -->|no design| design
-  appVal -->|other version| oldVer
-  appVal -->|no attempts left| spent
-  appVal -->|already open or issued| already
-  appVal -->|eligible| load --> req --> ai --> rules
-  rules -->|no| badGen
-  rules -->|yes| policy --> save --> rulesPage --> start --> answer
-  start -.-> tab
-  answer --> submit --> proposal --> pending --> read --> decision
-  decision -->|approve| issued --> sees
-  decision -->|reject| denied --> sees
-  decision -->|return| returned --> read
-  issued --> lookup
-  already --> sees
-  spent --> sees
+  title --> s1 --> s2 --> s3 --> gate
+  gate -->|No| stop --> why
+  gate -->|Already underway| already
+  gate -->|Yes| s5 --> s6 --> gen
+  gen -->|No| badGen
+  gen -->|Yes| s8 --> s9 --> s10 --> s11 --> s12 --> s13 --> decide
+  decide -->|Approve| issued --> s16 --> s17
+  decide -->|Reject| denied --> s16
+  decide -->|Return| returned --> s13
